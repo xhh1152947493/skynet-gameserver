@@ -1,0 +1,11 @@
+include "config.common"
+
+--logger = "./userlog"
+--daemon = "./skynet.pid"
+
+
+my_logger = true
+log_debug = true
+logpath   = "./log/main"
+
+node = "main"
