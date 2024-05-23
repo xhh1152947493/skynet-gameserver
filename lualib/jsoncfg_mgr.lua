@@ -2,6 +2,7 @@
 local json = require "cjson"
 local lfs = require "lfs"
 local cfgmgr = require "jsoncfg_def"
+local log = require "log"
 
 local directory_path = "./config/server_json/"
 
@@ -10,6 +11,7 @@ local function load_jsoncfg(filename)
     assert(file ~= nil)
     local items = json.decode(file:read("*all"))
     file:close()
+
     local new = {}
     for _, item in ipairs(items) do
         if item and next(item) ~= nil then
@@ -20,6 +22,7 @@ local function load_jsoncfg(filename)
     local cfgname = "cfg" .. filename:match(".*/(.-)%.json$")
 
     cfgmgr[cfgname].items = new
+    log.info("load json success...: ", cfgname)
 end
 
 local function traverse_directory(path)
@@ -45,5 +48,33 @@ cfgmgr.find_item = function(cfg, id)
 end
 
 traverse_directory(directory_path)
+
+-- 添加自己的自定义方法onloadpost
+
+-- function cfgmgr.CfgAchievement:onloadpost()
+--     local items_hash = {}
+--     for id, value in ipairs(self.items) do
+--         items_hash[id * 1000] = value
+--     end
+--     self.items_hash = items_hash
+-- end
+
+
+-- function cfgmgr.CfgAchievement:find_by_hash(id)
+--     local hash = id * 1000
+--     return self.items_hash[hash]
+-- end
+
+-- 
+
+local function onloadpost()
+    for _, value in pairs(cfgmgr) do
+        if type(value) == "table" and type(value.onloadpost) == "function" then
+            value:onloadpost()
+        end
+    end
+end
+
+onloadpost()
 
 return cfgmgr
