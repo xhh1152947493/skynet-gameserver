@@ -1,0 +1,15 @@
+
+j
+db.protopb"R
+PlayerBaseData
+PlayerID (RPlayerID$
+LastLoginTime (RLastLoginTimebproto3
+Ä
+game_msg.protopbdb.proto"A
+CommonErrResp
+ErrCode (RErrCode
+Reason (	RReason"$
+LoginReq
+IsGuest (RIsGuest"3
+	LoginResp&
+Base (2.pb.PlayerBaseDataRBasebproto3

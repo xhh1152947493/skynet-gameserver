@@ -40,14 +40,26 @@ local function traverse_directory(path)
     end
 end
 
-cfgmgr.find_item = function(cfg, id)
-    if not cfg or not cfg.items then
-        return nil
+traverse_directory(directory_path)
+
+-- 为每个mgr绑定基础的查找方法
+local function bind_find_func()
+    for _, cfg in pairs(cfgmgr) do
+        local tmp = cfg  -- 创建一个新的局部变量捕获当前迭代的 tbl 值
+        if tmp then
+            tmp.find_item = function(id)
+                if not tmp.items then
+                    return nil
+                end
+                return tmp.items[id]
+            end
+        end
     end
-    return cfg.items[id]
 end
 
-traverse_directory(directory_path)
+
+
+bind_find_func()
 
 -- 添加自己的自定义方法onloadpost
 
@@ -59,13 +71,12 @@ traverse_directory(directory_path)
 --     self.items_hash = items_hash
 -- end
 
-
 -- function cfgmgr.CfgAchievement:find_by_hash(id)
 --     local hash = id * 1000
 --     return self.items_hash[hash]
 -- end
 
--- 
+--
 
 local function onloadpost()
     for _, value in pairs(cfgmgr) do
