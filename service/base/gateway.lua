@@ -252,7 +252,7 @@ function s.initfunc()
     local port = 0
     for _, info in pairs(runconfig[node]) do
         if info.name == "gateway" then
-            for id, _ in ipairs(info.listt) do
+            for id, _ in ipairs(info.list) do
                 if id == s.id then
                     port = info.port
                     break
