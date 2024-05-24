@@ -21,7 +21,7 @@ local function load_jsoncfg(filename)
         end
     end
 
-    local cfgname = "Cfg" .. filename:match(".*/(.-)%.json$")
+    local cfgname = filename:match("/([^/]+)%.json$")
 
     cfgmgr[cfgname].items = new
 end
