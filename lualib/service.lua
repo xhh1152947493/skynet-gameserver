@@ -50,7 +50,7 @@ local function initfunc()
 
     log.info(
         string.format(
-            "[------start server end------] node:%s, name:%s id:%d, register_name:%s",
+            "[------start server end------] node:%s, name:%s id:%s, register_name:%s",
             skynet.getenv("node"),
             service.name,
             service.id,
