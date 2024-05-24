@@ -253,6 +253,7 @@ function s.initfunc()
     for _, info in pairs(runconfig[node]) do
         if info.name == "gateway" then
             for id, v in ipairs(info.list) do
+                log.debug(string.format("test 1111111111111 %s  %s  %s", id, s.id, v.port))
                 if id == s.id then
                     port = v.port
                     break
