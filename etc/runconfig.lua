@@ -45,7 +45,7 @@ return {
             name = "gateway",
             list = {
                 [1] = {port = 8501},
-                [2] = {port = 8503}
+                [2] = {port = 8502}
             }
         }
     }

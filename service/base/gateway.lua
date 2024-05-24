@@ -249,18 +249,25 @@ end
 
 function s.initfunc()
     local node = skynet.getenv("node")
-    local port = 0
-    for _, info in pairs(runconfig[node]) do
-        if info.name == "gateway" then
-            for id, v in ipairs(info.list) do
-                log.debug(string.format("test 1111111111111 %s  %s  %s", id, s.id, v.port))
-                if id == s.id then
-                    port = v.port
-                    break
+
+    local function find_port()
+        for _, info in pairs(runconfig[node]) do
+            if info.name == "gateway" then
+                for id, v in ipairs(info.list) do
+                    log.debug(string.format("test 1111111111111 %s  %s  %s", id, s.id, v.port))
+                    log.debug(string.format("test 2222222222222 %s  %s  %s", type(id), type(s.id), type(v.port)))
+                    if id == s.id then
+                        log.debug(string.format("test 333333333 %s  %s  %s", type(id), type(s.id), type(v.port)))
+                        return v.port
+                    end
                 end
             end
         end
+        return 0
     end
+
+    local port = find_port()
+
     assert(port ~= 0, "fail to find gate port: " .. port)
 
     local listen_id = socket.listen("0.0.0.0", port)
