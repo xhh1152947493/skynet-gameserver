@@ -7,6 +7,8 @@ local log = require "log"
 local directory_path = "./config/server_json/"
 
 local function load_jsoncfg(filename)
+    log.info("load json start...: ", filename)
+
     local file = io.open(filename, "r")
     assert(file ~= nil)
     local items = json.decode(file:read("*all"))
@@ -19,10 +21,9 @@ local function load_jsoncfg(filename)
         end
     end
 
-    local cfgname = "cfg" .. filename:match(".*/(.-)%.json$")
+    local cfgname = "Cfg" .. filename:match(".*/(.-)%.json$")
 
     cfgmgr[cfgname].items = new
-    log.info("load json success...: ", cfgname)
 end
 
 local function traverse_directory(path)
@@ -45,7 +46,7 @@ traverse_directory(directory_path)
 -- 为每个mgr绑定基础的查找方法
 local function bind_find_func()
     for _, cfg in pairs(cfgmgr) do
-        local tmp = cfg  -- 创建一个新的局部变量捕获当前迭代的 tbl 值
+        local tmp = cfg -- 创建一个新的局部变量捕获当前迭代的 tbl 值
         if tmp then
             tmp.find_item = function(id)
                 if not tmp.items then
@@ -56,8 +57,6 @@ local function bind_find_func()
         end
     end
 end
-
-
 
 bind_find_func()
 
