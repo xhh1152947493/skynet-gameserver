@@ -1,5 +1,4 @@
 local skynet = require "skynet"
-require "deftime"
 
 local util = {}
 
