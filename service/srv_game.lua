@@ -50,6 +50,8 @@ function s.resp.tick(srcaddr)
             end
         end
     end
+
+    log.debug(string.format("srv_game tick. s:%s | ms:%s", now, util.second_ms()))
 end
 
 function s.resp.login(srcaddr, playerid)
