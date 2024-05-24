@@ -3,7 +3,6 @@ local skynet = require "skynet"
 local s = require "service"
 local util = require "util"
 local log = require "log"
-local timewheelmgr = require "timewheel"
 local event = require "event"
 
 -- 注册游戏系统
@@ -14,6 +13,7 @@ do
 end
 
 local function loadconfig()
+    require "pbtool"
     require "jsoncfg_mgr"
 end
 
