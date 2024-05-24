@@ -1,6 +1,6 @@
 local skynet = require "skynet"
-local log    = require "log"
-require "skynet.manager"
+local log = require "log"
+local s = require "service"
 
 local MAIN_LOG_NAME = "skynet"
 local ZERO_MOVE_TIME = 0 --second
@@ -98,8 +98,6 @@ local function log_time()
     )
 end
 
-local CMD = {}
-
 local logging_fun = function(str)
     print(str)
 end
@@ -112,13 +110,13 @@ if is_daemon then
     end
 end
 
-function CMD.logging(source, type, str)
+function s.resp.logging(source, type, str)
     str = string.format("[:%08x][%s][%s] %s", source, log_time(), type, str)
 
     logging_fun(str, source)
 end
 
-function CMD.separate(source, path, file, no_change_dir, mode)
+function s.resp.separate(source, path, file, no_change_dir, mode)
     if is_daemon then
         file_mode[source] = mode or DEFAULT_FILE_MODE
         check_exists(log_path .. path)
@@ -130,7 +128,7 @@ function CMD.separate(source, path, file, no_change_dir, mode)
     end
 end
 
-function CMD.close(source)
+function s.resp.close(source)
     if is_daemon and log_service[source] and service_file[source] then
         io.close(service_file[source])
         log_service[source] = nil
@@ -139,13 +137,13 @@ function CMD.close(source)
     end
 end
 
-function CMD.forward(source, path, file, no_change_dir, mode)
+function s.resp.forward(source, path, file, no_change_dir, mode)
     if is_daemon then
         if not path then
-            CMD.close(source)
+            s.resp.close(source)
         else
-            CMD.close(source)
-            CMD.separate(source, path, file, no_change_dir)
+            s.resp.close(source)
+            s.resp.separate(source, path, file, no_change_dir)
             file_mode[source] = mode or DEFAULT_FILE_MODE
         end
     end
@@ -153,22 +151,4 @@ end
 
 time_dir()
 
-skynet.start(
-    function()
-        skynet.register(".logger") -- 给当前服务起一个名称 `.`前缀表示节点内可见. 在节点内可以直接通过`.logger`来与本服务通信不用地址
-
-        skynet.dispatch(
-            "lua",
-            function(session, source, cmd, ...)
-                local f = assert(CMD[cmd], cmd .. " not found")
-                if session > 0 then
-                    skynet.ret(skynet.pack(f(source, ...)))
-                else
-                    f(source, ...)
-                end
-            end
-        )
-
-        log.info(string.format("[------start server------] node:%s, name:%s", skynet.getenv("node"), "logger"))
-    end
-)
+s.start(...)

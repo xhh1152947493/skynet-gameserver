@@ -3,9 +3,27 @@ local runconfig = require "runconfig"
 local cluster = require "skynet.cluster"
 local log = require "log"
 
+-- 同步启动，保证启动完成才往下执行.避免还没启动完成消息已经来了
+local function sync_bootstrap(srv, name, id)
+    local loopcnt = 0
+    local addr = skynet.newservice(srv, name, id)
+    while true do
+        local bootstraped = skynet.call(addr, "lua", "is_bootstraped")
+        if bootstraped then
+            return true
+        end
+        loopcnt = loopcnt + 1
+        if loopcnt >= 60 then -- 60秒还没启动完成
+            log.info(string.format("sync_bootstrap fail. srv:%s name:%s id:%s", srv, name, id))
+            return false
+        end
+        skynet.sleep(SKYNET_SECOND)
+    end
+end
+
 skynet.start(
     function()
-        skynet.newservice("logger") -- 启动logger服务
+        sync_bootstrap("logger", "logger", nil) -- 启动logger服务
 
         local selfnode = skynet.getenv("node")
         log.info("[--------start bootstrap main--------] node: ", selfnode)
@@ -23,7 +41,7 @@ skynet.start(
         local cfgnode = runconfig[selfnode]
         for sname, info in pairs(cfgnode) do
             for index, _ in ipairs(info) do
-                skynet.newservice(sname, sname, index) -- 本节点服务，服务内部自己注册别名
+                sync_bootstrap(sname, sname, index) -- 本节点服务，服务内部自己注册别名
             end
         end
 

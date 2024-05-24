@@ -11,7 +11,8 @@ local service = {
     exitfunc = nil,
     initfunc = nil,
     resp = {},
-    client = {}
+    client = {},
+    bootstraped = false -- 该服务是否已经启动完成
 }
 
 function Traceback(err)
@@ -40,9 +41,22 @@ end
 
 local function initfunc()
     skynet.dispatch("lua", dispatch)
+
     if service.initfunc then
         service.initfunc()
     end
+
+    service.bootstraped = true
+
+    log.info(
+        string.format(
+            "[------start server end------] node:%s, name:%s id:%d, register_name:%d",
+            skynet.getenv("node"),
+            service.name,
+            service.id,
+            service.register_name()
+        )
+    )
 end
 
 -- req请求统一在此处返回resp给client
@@ -52,7 +66,7 @@ function service.resp.client(srcaddr, fd, cmd, bs)
         log.error(string.format("client req msg not found. cmd:%d ID:%s name:%s", cmd, service.id, service.name))
         return
     end
-    local resp = func(fd, bs, srcaddr)
+    local resp = func(fd, srcaddr, bs)
     if resp == nil then
         return
     end
@@ -64,17 +78,17 @@ function service.register_clientmsg_handle(msg, func)
     service.client = service.client or {} -- s.client每个服务都有自己一份
     assert(service.client[msg.ID] == nil, string.format("register clientmsg handle fail, msg repeat:%s", msg.ID))
 
-    local wrap = function(fd, bs, srcaddr)
+    local wrap = function(fd, srcaddr, bs)
         local req = pbtool.decode(msg.Msg, bs)
         local ret = func(fd, srcaddr, req)
         if ret == nil then
             return nil
         end
-        local resp, info = ret[0], ret[1]
-        if info ~= nil then -- 返回统一错误信息
-            return net.pack_msg(MESSAGE_TYPE.GS2C_COMMON_ERR, info)
+        local resp, err_info = ret[0], ret[1]
+        if err_info ~= nil then -- 返回统一错误信息
+            return net.pack_msg(MESSAGE_TYPE.GS2C_COMMON_ERR, err_info)
         end
-        return resp
+        return resp -- 请求和返回不是同一条协议，不能统一打包
     end
 
     service.client[msg.ID] = wrap
@@ -99,12 +113,25 @@ function service.send(node, dstaddr, ...)
     end
 end
 
+-- 给当前服务在本节点内起一个别名
+function service.register_name()
+    local name = ""
+    if service.id ~= nil then
+        name = string.format(".%s%d", service.name, tonumber(service.id))
+    else
+        name = string.format(".%s", service.name)
+    end
+    skynet.register(name)
+    return name
+end
+
+function service.resp.is_bootstraped(srcaddr)
+    return service.bootstraped
+end
+
 function service.start(name, id, ...)
     service.name = name
-    if id == nil then
-        service.id = 1
-    end
-    service.id = tonumber(id)
+    service.id = id
     skynet.start(initfunc)
 end
 

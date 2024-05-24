@@ -24,19 +24,20 @@ return {
     debug_console = {
         main = {port = 8001}
     },
+    -- gateway应该最后启动，启动时应该顺序启动保证启动完才启动下一个
     main = {
-        gateway = {
-            [1] = {port = 8501},
-            [2] = {port = 8503},
+        srv_game = {
+            [1] = {},
+            [2] = {},
+            [3] = {}
         },
         login = {
             [1] = {},
             [2] = {}
         },
-        srv_game = {
-            [1] = {},
-            [2] = {},
-            [3] = {}
+        gateway = {
+            [1] = {port = 8501},
+            [2] = {port = 8503}
         }
     }
 }
