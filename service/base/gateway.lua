@@ -250,10 +250,14 @@ end
 function s.initfunc()
     local node = skynet.getenv("node")
     local port = 0
-    for id, info in pairs(runconfig[node].gateway) do
-        if id == s.id then
-            port = info.port
-            break
+    for _, info in pairs(runconfig[node]) do
+        if info.name == "gateway" then
+            for id, _ in ipairs(info.listt) do
+                if id == s.id then
+                    port = info.port
+                    break
+                end
+            end
         end
     end
     assert(port ~= 0, "fail to find gate port: " .. port)

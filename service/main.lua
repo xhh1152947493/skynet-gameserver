@@ -41,9 +41,9 @@ skynet.start(
         skynet.newservice("debug_console", runconfig.debug_console[selfnode].port) -- 启动debug_console服务
 
         local cfgnode = runconfig[selfnode]
-        for sname, info in pairs(cfgnode) do
-            for id, _ in pairs(info) do
-                sync_bootstrap(sname, sname, id) -- 本节点服务，服务内部自己注册别名
+        for _, info in ipairs(cfgnode) do -- 顺序启动
+            for id, _ in ipairs(info.list) do
+                sync_bootstrap(info.name, info.name, id) -- 本节点服务，服务内部自己注册别名
             end
         end
 
