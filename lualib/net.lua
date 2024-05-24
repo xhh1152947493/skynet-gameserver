@@ -1,6 +1,5 @@
 local pbtool = require "pbtool"
 local skynet = require "skynet"
-local gdata = require "dglobal"
 local log = require "log"
 
 require "message_def"
