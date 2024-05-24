@@ -1,6 +1,7 @@
 local timewheelmgr = require "timewheel"
 local util = require "util"
 local time_mgr = require "time_mgr"
+require "common_def"
 
 -- 游戏服的时间管理器，可以偏移
 _G.TIME_MGR = time_mgr
