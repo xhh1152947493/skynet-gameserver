@@ -129,9 +129,12 @@ function service.resp.is_bootstraped(srcaddr)
     return service.bootstraped
 end
 
+-- 大坑，都是字符串形式传进来的
 function service.start(name, id, ...)
     service.name = name
-    service.id = id
+    if id ~= nil then
+        service.id = tonumber(id)
+    end
     skynet.start(initfunc)
 end
 
