@@ -5,7 +5,7 @@ local runconfig = require "runconfig"
 local log = require "log"
 local util= require "util"
 
-require "msg_type"
+require "message_def"
 require "pb_enum"
 
 -- login服的主要功能为验证登录
