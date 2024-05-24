@@ -5,6 +5,8 @@ local log = require "log"
 
 -- 同步启动，保证启动完成才往下执行.避免还没启动完成消息已经来了
 local function sync_bootstrap(srv, name, id)
+    log.debug(string.format("sync_bootstrap start. srv:%s name:%s id:%s", srv, name, id))
+
     local loopcnt = 0
     local addr = skynet.newservice(srv, name, id)
     while true do
@@ -40,8 +42,8 @@ skynet.start(
 
         local cfgnode = runconfig[selfnode]
         for sname, info in pairs(cfgnode) do
-            for index, _ in ipairs(info) do
-                sync_bootstrap(sname, sname, index) -- 本节点服务，服务内部自己注册别名
+            for id, _ in pairs(info) do
+                sync_bootstrap(sname, sname, id) -- 本节点服务，服务内部自己注册别名
             end
         end
 

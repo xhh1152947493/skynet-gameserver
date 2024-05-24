@@ -250,8 +250,8 @@ end
 function s.initfunc()
     local node = skynet.getenv("node")
     local port = 0
-    for index, info in pairs(runconfig[node].gateway) do
-        if index == s.id then
+    for id, info in pairs(runconfig[node].gateway) do
+        if id == s.id then
             port = info.port
             break
         end
