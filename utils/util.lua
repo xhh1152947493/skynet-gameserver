@@ -1,4 +1,5 @@
 local skynet = require "skynet"
+require "common_def"
 
 local util = {}
 
