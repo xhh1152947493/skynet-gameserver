@@ -82,7 +82,7 @@ function time_wheel:tick_once()
     local currentslotnodes = self.slots[self.currentslot]
     for _, node in ipairs(currentslotnodes) do
         if node ~= nil and not node.canceled then
-            xpcall(node.callback, Traceback)
+            node.callback()
         end
     end
     self.slots[self.currentslot] = {} -- 清空当前槽的定时器

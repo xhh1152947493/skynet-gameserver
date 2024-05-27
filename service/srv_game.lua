@@ -31,27 +31,32 @@ local function main_loop()
 end
 
 function s.resp.tick(srcaddr)
-    local now = util.second()
+    xpcall(
+        function()
+            local now = util.second()
 
-    -- 更新游戏时间
-    _G.TIME_MGR.update(now, util.second_ms())
+            -- 更新游戏时间
+            _G.TIME_MGR.update(now, util.second_ms())
 
-    -- 时间轮转动
-    _G.TIMEWHEEL_GAME:tick2now(now)
+            -- 时间轮转动
+            _G.TIMEWHEEL_GAME:tick2now(now)
 
-    -- 系统update
-    for _, sys in ipairs(systems) do
-        if sys.update then
-            local s1 = util.second_ms()
-            sys.update()
-            local s2 = util.second_ms()
-            if s2 - s1 > 50 then
-                log.warning("[---tick update deal timeout---] cost time: " .. s2 - s1)
+            -- 系统update
+            for _, sys in ipairs(systems) do
+                if sys.update then
+                    local s1 = util.second_ms()
+                    sys.update()
+                    local s2 = util.second_ms()
+                    if s2 - s1 > 50 then
+                        log.warning("[---tick update deal timeout---] cost time: " .. s2 - s1)
+                    end
+                end
             end
-        end
-    end
 
-    log.debug(string.format("srv_game tick. s:%s | ms:%s", now, util.second_ms()))
+            log.debug(string.format("srv_game tick. s:%s | ms:%s", now, util.second_ms()))
+        end,
+        Traceback
+    )
 end
 
 function s.resp.login(srcaddr, playerid)
