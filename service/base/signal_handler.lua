@@ -54,7 +54,7 @@ end
 
 s.initfunc = function()
     -- 注册信号处理器
-    log.info("Registering signal handlers")
+    log.info("Registering signal handlers.", signal, signal.SIGTERM, signal.SIGINT)
     signal.signal(signal.SIGTERM, handle_signal)
     signal.signal(signal.SIGINT, handle_signal)
 end
