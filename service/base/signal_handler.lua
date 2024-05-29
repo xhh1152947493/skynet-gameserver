@@ -23,6 +23,8 @@ end
 
 -- 处理本节点的进程退出[main节点必须最后关闭，因为唯一服部署在main节点]
 local function handle_signal(signo)
+    log.info(string.format("handle_signal, recv sigin. sigin:%s", signo))
+
     -- kill -SIGTERM 1234
     -- ctrl + c
     if signo == signal.SIGTERM or signo == signal.SIGINT then -- 通知其他服务进行退出前的清理操作
