@@ -7,7 +7,7 @@ local pbtool = require "pbtool"
 -- 每个服务单独保有一份
 local service = {
     name = "",
-    id = 0,
+    id = nil,
     exitfunc = nil,
     initfunc = nil,
     resp = {},
