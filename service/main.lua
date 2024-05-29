@@ -3,6 +3,25 @@ local runconfig = require "runconfig"
 local cluster = require "skynet.cluster"
 local log = require "log"
 
+local _exit = false
+
+local function handle_signal(signo)
+    log.info(string.format("handle_signal, recv sigin. sigin:%s", signo))
+end
+
+local function catch_signal()
+    local posix = require("posix")
+
+    posix.signal.signal(posix.signal.SIGTERM, handle_signal)
+    posix.signal.signal(posix.signal.SIGINT, handle_signal)
+
+    while true do
+        if _exit == true then
+            break
+        end
+    end
+end
+
 skynet.start(
     -- 顺序启动服务，任何一个服务启动失败则退出进程
     function()
@@ -21,7 +40,7 @@ skynet.start(
 
         skynet.newservice("debug_console", runconfig.debug_console[selfnode].port) -- 启动debug_console服务
 
-        skynet.newservice("signal_handler", "signal_handler") -- 启动信号处理服务
+        -- skynet.newservice("signal_handler", "signal_handler") -- 启动信号处理服务
 
         local cfgnode = runconfig[selfnode]
         for _, info in ipairs(cfgnode) do -- 顺序启动
@@ -30,7 +49,9 @@ skynet.start(
             end
         end
 
+        catch_signal()
+
         log.info("[--------end bootstrap main--------] node: ", selfnode)
-        skynet.exit() -- 退出当前服务
+        skynet.exit()
     end
 )
