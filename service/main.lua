@@ -6,6 +6,7 @@ local log = require "log"
 local function _bootstrap(srv, name, id)
     log.debug(string.format("_bootstrap start. srv:%s name:%s id:%s", srv, name, id))
     local addr = skynet.newservice(srv, name, id)
+    log.debug(string.format("_bootstrap start. srv:%s name:%s id:%s addr:%s", srv, name, id, addr))
     if addr == nil then
         log.error(string.format("_bootstrap fail. srv:%s name:%s id:%s", srv, name, id))
         skynet.abort()
