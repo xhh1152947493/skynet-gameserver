@@ -21,7 +21,6 @@ local function catch_signal()
     while true do
         if _exit == true then
             log.info(string.format("catch_signal _exit"))
-            skynet.exit()
             break
         end
         skynet.sleep(100) -- 等待一段时间，避免阻塞主线程
@@ -55,8 +54,9 @@ skynet.start(
             end
         end
 
-        skynet.fork(catch_signal)
+        catch_signal()
 
+        skynet.exit()
         log.info("[--------end bootstrap main--------] node: ", selfnode)
     end
 )
