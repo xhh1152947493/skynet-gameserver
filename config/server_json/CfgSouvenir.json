@@ -1,1 +1,24 @@
-[{"ID":1092,"RefillCost":[[2,1]],"StartingCount":15,"RefillCount":5},{"ID":1093,"RefillCost":[[2,2]],"StartingCount":0,"RefillCount":5}]
+[
+  {
+    "ID": 1092,
+    "RefillCost": [
+      [
+        2,
+        1
+      ]
+    ],
+    "StartingCount": 15,
+    "RefillCount": 5
+  },
+  {
+    "ID": 1093,
+    "RefillCost": [
+      [
+        2,
+        2
+      ]
+    ],
+    "StartingCount": 0,
+    "RefillCount": 5
+  }
+]

@@ -47,6 +47,8 @@ skynet.start(
             end
         end
 
+        sync_bootstrap("signal_handler", "signal_handler", nil) -- 启动信号捕捉服务
+
         log.info("[--------end bootstrap main--------] node: ", selfnode)
         skynet.exit() -- 退出当前服务
     end

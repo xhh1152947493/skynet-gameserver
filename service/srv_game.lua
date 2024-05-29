@@ -18,7 +18,14 @@ local function loadconfig()
 end
 
 local function initglobal()
-    require "init_global"
+    local timewheelmgr = require "timewheel"
+    local time_mgr = require "time_mgr"
+
+    -- 游戏服的时间管理器，可以偏移
+    _G.TIME_MGR = time_mgr
+    _G.TIME_MGR.update(util.second(), util.second_ms())
+
+    _G.TIMEWHEEL_GAME = timewheelmgr:new_timewheel("WHEEL_GAME", util.second(), 259200, _G.SKYNET_SECOND)
 end
 
 -- 游戏主循环,这个循环里面任何逻辑不能直接执行，只能通过消息传递到主线程的方式来触发，避免并发问题。
@@ -65,6 +72,16 @@ end
 
 function s.resp.kick(srcaddr, playerid)
     event.publish_event(EVENT_MSG.EVENT_PLYAER_LOGOUT, playerid)
+end
+
+-- 进程退出
+function s.resp.srv_exit(srcaddr)
+    for _, sys in ipairs(systems) do
+        if sys.exit then
+            sys.exit()
+        end
+    end
+    skynet.exit()
 end
 
 -- initfunc必须在dispatch之后，不会阻塞dispatch

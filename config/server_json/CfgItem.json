@@ -1,1 +1,248 @@
-[{"ID":1001,"Type":1,"DiscardCost":[1,2],"OccupySlot":2,"Accessories":[1001,1002],"Levels":[100101,100102,100103,100104]},{"ID":1002,"Type":1,"DiscardCost":[1,2],"Accessories":[1003,1004],"Levels":[100201,100202,100203,100204]},{"ID":1003,"Type":2,"DiscardCost":[1,1],"Accessories":[1005,1006,1007],"Levels":[100301,100302,100303,100304]},{"ID":1004,"Type":3,"DiscardCost":[1,1]},{"ID":1005,"Type":4,"DiscardCost":[1,2],"Levels":[100501,100502,100503,100504]},{"ID":1006,"Type":5,"DiscardCost":[1,3],"Levels":[100601]},{"ID":1007,"Type":5,"DiscardCost":[1,3],"Levels":[100701]},{"ID":1008,"Type":6,"DiscardCost":[1,1],"Accessories":[1008,1009,1010],"Levels":[100801,100802,100803,100804]},{"ID":1009,"Type":6,"DiscardCost":[1,1],"Accessories":[1011,1012,1013],"Levels":[100901,100902,100903,100904]},{"ID":1010,"Type":6,"DiscardCost":[1,1],"Accessories":[1014,1015,1016],"Levels":[101001,101002,101003,101004]},{"ID":1011,"Type":1,"DiscardCost":[1,3],"Accessories":[1017,1018,1019,1020],"Levels":[101101,101102,101103,101104]},{"ID":1012,"Type":1,"DiscardCost":[1,3],"Accessories":[1021,1022,1023],"Levels":[101201,101202,101203,101204]},{"ID":1013,"Type":1,"DiscardCost":[1,3],"Levels":[101301,101302,101303]},{"ID":1014,"Type":6,"DiscardCost":[1,1],"Levels":[101401,101402,101403]},{"ID":1015,"Type":7},{"ID":1016,"Type":8,"IncludeItemID":1013,"IncludeTrashItemID":1018},{"ID":1017,"Type":9},{"ID":1018,"Type":8,"IncludeItemID":1014,"IncludeTrashItemID":1019},{"ID":1019,"Type":9}]
+[
+  {
+    "ID": 1001,
+    "Type": 1,
+    "DiscardCost": [
+      1,
+      2
+    ],
+    "OccupySlot": 2,
+    "Accessories": [
+      1001,
+      1002
+    ],
+    "Levels": [
+      100101,
+      100102,
+      100103,
+      100104
+    ]
+  },
+  {
+    "ID": 1002,
+    "Type": 1,
+    "DiscardCost": [
+      1,
+      2
+    ],
+    "Accessories": [
+      1003,
+      1004
+    ],
+    "Levels": [
+      100201,
+      100202,
+      100203,
+      100204
+    ]
+  },
+  {
+    "ID": 1003,
+    "Type": 2,
+    "DiscardCost": [
+      1,
+      1
+    ],
+    "Accessories": [
+      1005,
+      1006,
+      1007
+    ],
+    "Levels": [
+      100301,
+      100302,
+      100303,
+      100304
+    ]
+  },
+  {
+    "ID": 1004,
+    "Type": 3,
+    "DiscardCost": [
+      1,
+      1
+    ]
+  },
+  {
+    "ID": 1005,
+    "Type": 4,
+    "DiscardCost": [
+      1,
+      2
+    ],
+    "Levels": [
+      100501,
+      100502,
+      100503,
+      100504
+    ]
+  },
+  {
+    "ID": 1006,
+    "Type": 5,
+    "DiscardCost": [
+      1,
+      3
+    ],
+    "Levels": [
+      100601
+    ]
+  },
+  {
+    "ID": 1007,
+    "Type": 5,
+    "DiscardCost": [
+      1,
+      3
+    ],
+    "Levels": [
+      100701
+    ]
+  },
+  {
+    "ID": 1008,
+    "Type": 6,
+    "DiscardCost": [
+      1,
+      1
+    ],
+    "Accessories": [
+      1008,
+      1009,
+      1010
+    ],
+    "Levels": [
+      100801,
+      100802,
+      100803,
+      100804
+    ]
+  },
+  {
+    "ID": 1009,
+    "Type": 6,
+    "DiscardCost": [
+      1,
+      1
+    ],
+    "Accessories": [
+      1011,
+      1012,
+      1013
+    ],
+    "Levels": [
+      100901,
+      100902,
+      100903,
+      100904
+    ]
+  },
+  {
+    "ID": 1010,
+    "Type": 6,
+    "DiscardCost": [
+      1,
+      1
+    ],
+    "Accessories": [
+      1014,
+      1015,
+      1016
+    ],
+    "Levels": [
+      101001,
+      101002,
+      101003,
+      101004
+    ]
+  },
+  {
+    "ID": 1011,
+    "Type": 1,
+    "DiscardCost": [
+      1,
+      3
+    ],
+    "Accessories": [
+      1017,
+      1018,
+      1019,
+      1020
+    ],
+    "Levels": [
+      101101,
+      101102,
+      101103,
+      101104
+    ]
+  },
+  {
+    "ID": 1012,
+    "Type": 1,
+    "DiscardCost": [
+      1,
+      3
+    ],
+    "Accessories": [
+      1021,
+      1022,
+      1023
+    ],
+    "Levels": [
+      101201,
+      101202,
+      101203,
+      101204
+    ]
+  },
+  {
+    "ID": 1013,
+    "Type": 1,
+    "DiscardCost": [
+      1,
+      3
+    ],
+    "Levels": [
+      101301,
+      101302,
+      101303
+    ]
+  },
+  {
+    "ID": 1014,
+    "Type": 6,
+    "DiscardCost": [
+      1,
+      1
+    ],
+    "Levels": [
+      101401,
+      101402,
+      101403
+    ]
+  },
+  {
+    "ID": 1015,
+    "Type": 7
+  },
+  {
+    "ID": 1016,
+    "Type": 8,
+    "IncludeItemID": 1013,
+    "IncludeTrashItemID": 1018
+  },
+  {
+    "ID": 1017,
+    "Type": 9
+  },
+  {
+    "ID": 1018,
+    "Type": 8,
+    "IncludeItemID": 1014,
+    "IncludeTrashItemID": 1019
+  },
+  {
+    "ID": 1019,
+    "Type": 9
+  }
+]

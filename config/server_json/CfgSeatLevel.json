@@ -1,1 +1,163 @@
-[{"ID":100101,"BusinessClassExtraOrders":[1,4],"Cost":[[2,5]]},{"ID":100102,"RequestDurationIncrease":2.0,"IncreaseTimeBetweenOrders":0.3,"BusinessClassExtraOrders":[1,4],"Cost":[[1,3000]]},{"ID":100103,"RequestDurationIncrease":2.0,"BusinessClassExtraOrders":[1,4],"Cost":[[1,4000],[2,1]]},{"ID":100104,"RequestDurationIncrease":2.0,"BusinessClassExtraOrders":[1,4],"Cost":[[1,5000],[2,2]]},{"ID":100105,"RequestDurationIncrease":2.0,"BusinessClassExtraOrders":[1,4],"Cost":[[1,6000],[2,2]]},{"ID":100106,"RequestDurationIncrease":2.0,"BusinessClassExtraOrders":[1,4],"Cost":[[1,7000],[2,2]]},{"ID":100107},{"ID":100108,"RequestDurationIncrease":2.0,"Cost":[[1,250]]},{"ID":100109,"RequestDurationIncrease":2.0,"Cost":[[1,1500]]},{"ID":100110,"RequestDurationIncrease":2.0,"Cost":[[1,2000]]},{"ID":100111,"RequestDurationIncrease":2.0,"Cost":[[1,2500],[2,1]]},{"ID":100112,"RequestDurationIncrease":2.0,"Cost":[[1,3000],[2,2]]}]
+[
+  {
+    "ID": 100101,
+    "BusinessClassExtraOrders": [
+      1,
+      4
+    ],
+    "Cost": [
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 100102,
+    "RequestDurationIncrease": 2.0,
+    "IncreaseTimeBetweenOrders": 0.3,
+    "BusinessClassExtraOrders": [
+      1,
+      4
+    ],
+    "Cost": [
+      [
+        1,
+        3000
+      ]
+    ]
+  },
+  {
+    "ID": 100103,
+    "RequestDurationIncrease": 2.0,
+    "BusinessClassExtraOrders": [
+      1,
+      4
+    ],
+    "Cost": [
+      [
+        1,
+        4000
+      ],
+      [
+        2,
+        1
+      ]
+    ]
+  },
+  {
+    "ID": 100104,
+    "RequestDurationIncrease": 2.0,
+    "BusinessClassExtraOrders": [
+      1,
+      4
+    ],
+    "Cost": [
+      [
+        1,
+        5000
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 100105,
+    "RequestDurationIncrease": 2.0,
+    "BusinessClassExtraOrders": [
+      1,
+      4
+    ],
+    "Cost": [
+      [
+        1,
+        6000
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 100106,
+    "RequestDurationIncrease": 2.0,
+    "BusinessClassExtraOrders": [
+      1,
+      4
+    ],
+    "Cost": [
+      [
+        1,
+        7000
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 100107
+  },
+  {
+    "ID": 100108,
+    "RequestDurationIncrease": 2.0,
+    "Cost": [
+      [
+        1,
+        250
+      ]
+    ]
+  },
+  {
+    "ID": 100109,
+    "RequestDurationIncrease": 2.0,
+    "Cost": [
+      [
+        1,
+        1500
+      ]
+    ]
+  },
+  {
+    "ID": 100110,
+    "RequestDurationIncrease": 2.0,
+    "Cost": [
+      [
+        1,
+        2000
+      ]
+    ]
+  },
+  {
+    "ID": 100111,
+    "RequestDurationIncrease": 2.0,
+    "Cost": [
+      [
+        1,
+        2500
+      ],
+      [
+        2,
+        1
+      ]
+    ]
+  },
+  {
+    "ID": 100112,
+    "RequestDurationIncrease": 2.0,
+    "Cost": [
+      [
+        1,
+        3000
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  }
+]

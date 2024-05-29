@@ -151,4 +151,9 @@ end
 
 time_dir()
 
+-- 进程退出
+function s.resp.srv_exit(srcaddr)
+    skynet.exit()
+end
+
 s.start(...)
