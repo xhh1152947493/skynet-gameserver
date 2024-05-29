@@ -14,7 +14,9 @@ local function sync_bootstrap(srv, name, id)
     local addr = skynet.newservice(srv, name, id)
     while true do
         local bootstraped = skynet.call(addr, "lua", "is_bootstraped")
+        log.info(string.format("sync_bootstrap start. srv:%s name:%s id:%s bootstraped:%s", srv, name, id, bootstraped))
         if bootstraped then
+            log.info(string.format("sync_bootstrap success. srv:%s name:%s id:%s", srv, name, id))
             return true
         end
         loopcnt = loopcnt + 1
