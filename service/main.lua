@@ -3,6 +3,9 @@ local runconfig = require "runconfig"
 local cluster = require "skynet.cluster"
 local log = require "log"
 
+-- local bootstrap_wait = 30
+local bootstrap_wait = 10
+
 -- 同步启动，保证启动完成才往下执行.避免还没启动完成消息已经来了
 local function sync_bootstrap(srv, name, id)
     log.debug(string.format("sync_bootstrap start. srv:%s name:%s id:%s", srv, name, id))
@@ -15,8 +18,8 @@ local function sync_bootstrap(srv, name, id)
             return true
         end
         loopcnt = loopcnt + 1
-        if loopcnt >= 60 then -- 60秒还没启动完成
-            log.info(string.format("sync_bootstrap fail. srv:%s name:%s id:%s", srv, name, id))
+        if loopcnt >= bootstrap_wait then -- 60秒还没启动完成
+            assert(nil, string.format("sync_bootstrap fail. srv:%s name:%s id:%s", srv, name, id))
             return false
         end
         skynet.sleep(SKYNET_SECOND)
