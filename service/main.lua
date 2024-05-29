@@ -4,9 +4,12 @@ local cluster = require "skynet.cluster"
 local log = require "log"
 local signal = require "posix.signal"
 
+local _exit = false
+
 local function handle_signal(signo)
     log.info(string.format("handle_signal, recv sigin. sigin:%s", signo))
-    skynet.exit()
+
+    _exit = true
 end
 
 local function catch_signal()
@@ -14,6 +17,15 @@ local function catch_signal()
 
     signal.signal(signal.SIGTERM, handle_signal)
     signal.signal(signal.SIGINT, handle_signal)
+
+    while true do
+        if _exit == true then
+            log.info(string.format("catch_signal _exit"))
+            skynet.exit()
+            break
+        end
+        skynet.sleep(100) -- 等待一段时间，避免阻塞主线程
+    end
 end
 
 skynet.start(
@@ -43,7 +55,7 @@ skynet.start(
             end
         end
 
-        catch_signal()
+        skynet.fork(catch_signal)
 
         log.info("[--------end bootstrap main--------] node: ", selfnode)
     end
