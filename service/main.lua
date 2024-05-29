@@ -10,10 +10,12 @@ local function handle_signal(signo)
 end
 
 local function catch_signal()
-    local posix = require("posix")
+    log.info(string.format("catch_signal register"))
 
-    posix.signal.signal(posix.signal.SIGTERM, handle_signal)
-    posix.signal.signal(posix.signal.SIGINT, handle_signal)
+    local signal = require "posix.signal"
+
+    signal.signal(signal.SIGTERM, handle_signal)
+    signal.signal(signal.SIGINT, handle_signal)
 
     while true do
         if _exit == true then
