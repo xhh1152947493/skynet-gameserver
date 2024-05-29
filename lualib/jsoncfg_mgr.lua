@@ -9,6 +9,11 @@ local directory_path = "./config/server_json/"
 local function load_jsoncfg(filename)
     log.info("load json start...: ", filename)
 
+    local cfgname = filename:match("/([^/]+)%.json$")
+    if cfgmgr[cfgname] == nil then
+        return
+    end
+
     local file = io.open(filename, "r")
     assert(file ~= nil)
     local items = json.decode(file:read("*all"))
@@ -20,8 +25,6 @@ local function load_jsoncfg(filename)
             new[item.ID] = item
         end
     end
-
-    local cfgname = filename:match("/([^/]+)%.json$")
 
     cfgmgr[cfgname].items = new
 end
