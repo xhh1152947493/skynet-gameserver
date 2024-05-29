@@ -2,28 +2,23 @@ local skynet = require "skynet.manager"
 local runconfig = require "runconfig"
 local cluster = require "skynet.cluster"
 local log = require "log"
-local signal = require "posix.signal"
 
 local _exit = false
 
 local function handle_signal(signo)
     log.info(string.format("handle_signal, recv sigin. sigin:%s", signo))
-
-    _exit = true
 end
 
 local function catch_signal()
-    log.info(string.format("catch_signal register"))
+    local posix = require("posix")
 
-    signal.signal(signal.SIGTERM, handle_signal)
-    signal.signal(signal.SIGINT, handle_signal)
+    posix.signal.signal(posix.signal.SIGTERM, handle_signal)
+    posix.signal.signal(posix.signal.SIGINT, handle_signal)
 
     while true do
         if _exit == true then
-            log.info(string.format("catch_signal _exit"))
             break
         end
-        skynet.sleep(100) -- 等待一段时间，避免阻塞主线程
     end
 end
 
@@ -56,7 +51,7 @@ skynet.start(
 
         catch_signal()
 
-        skynet.exit()
         log.info("[--------end bootstrap main--------] node: ", selfnode)
+        skynet.exit()
     end
 )
