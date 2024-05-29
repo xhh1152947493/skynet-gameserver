@@ -45,6 +45,8 @@ local function handle_signal(signo)
 
         -- 5、最后退出log服务
         call_exit_srv(".logger")
+
+        skynet.abort()
     end
 end
 
