@@ -9,6 +9,7 @@ local _current_file = nil
 
 local function check_exists(path)
     local attr = lfs.attributes(path)
+    print("check_exists...........", path, attr)
     if not attr then
         lfs.mkdir(path)
     elseif attr.mode ~= "directory" then
@@ -39,6 +40,8 @@ end
 
 -- 避免无限生成文件
 local function checkfix_file_count()
+    print("checkfix_file_count...........")
+
     if is_debug then
         return
     end
@@ -68,6 +71,7 @@ local function checkfix_file_count()
 end
 
 local function time_file()
+    print("time_file...........")
     if _current_file ~= nil then
         _current_file:close()
     end
