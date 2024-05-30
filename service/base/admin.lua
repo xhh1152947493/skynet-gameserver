@@ -4,7 +4,19 @@ local runconfig = require "runconfig"
 local socket = require "skynet.socket"
 local log = require "log"
 
-local _tips = "\nPlease enter cmd.\r\nStop:stop all server and abort this skynet node\r\n"
+local _tp_cmd = {
+    "Help: Get all cmd help info.\n",
+    "Stop: Stop all server and abort this skynet node.\n"
+}
+local function _init_tips()
+    local tips = "\nPlease enter cmd.\n"
+    for _, info in ipairs(_tp_cmd) do
+        tips = tips .. info
+    end
+    tips = tips .. "\n"
+    return tips
+end
+local _tips = _init_tips()
 
 local _command = {}
 
