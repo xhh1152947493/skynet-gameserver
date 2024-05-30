@@ -26,7 +26,14 @@ local function format_log_content(level, str)
     -- 不能在文件头引用，避免循环引用
     local s = require "service"
 
-    return string.format("[:%08x][%s][%s][%s] %s", skynet.self(), s.name_register, os.date("%H:%M:%S"), LOG_LEVEL_DESC[level], str)
+    return string.format(
+        "[:%08x][%s][%s][%s] %s",
+        skynet.self(),
+        os.date("%H:%M:%S"),
+        s.name_register,
+        LOG_LEVEL_DESC[level],
+        str
+    )
 end
 
 -- 未启用使用skynet.error标准输出

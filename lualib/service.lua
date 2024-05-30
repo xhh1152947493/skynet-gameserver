@@ -43,10 +43,11 @@ end
 local function initfunc()
     skynet.dispatch("lua", dispatch)
 
+    service.register_name()
+
     if service.initfunc then
         service.initfunc()
     end
-    service.register_name()
 
     service.bootstraped = true
 
