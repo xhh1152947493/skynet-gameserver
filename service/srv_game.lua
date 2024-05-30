@@ -74,7 +74,7 @@ function s.resp.kick(srcaddr, playerid)
     event.publish_event(EVENT_MSG.EVENT_PLYAER_LOGOUT, playerid)
 end
 
--- 进程退出
+-- 服务退出
 function s.resp.srv_exit(srcaddr)
     for _, sys in ipairs(systems) do
         if sys.exit then
@@ -84,7 +84,6 @@ function s.resp.srv_exit(srcaddr)
     skynet.exit()
 end
 
--- initfunc必须在dispatch之后，不会阻塞dispatch
 s.initfunc = function()
     -- 初始化全局变量
     initglobal()

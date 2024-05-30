@@ -31,7 +31,7 @@ local function handle_login(fd, srcaddr, req)
     return nil, nil
 end
 
--- 进程退出
+-- 服务退出
 function s.resp.srv_exit(srcaddr)
     skynet.exit()
 end

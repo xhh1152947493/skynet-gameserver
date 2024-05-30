@@ -129,7 +129,7 @@ function s.resp.reqlogin(srcaddr, srcnode, gateaddr, req)
     return srv_game_addr, mplayer.playerid, nil
 end
 
--- 进程退出
+-- 服务退出
 function s.resp.srv_exit(srcaddr)
     skynet.exit()
 end

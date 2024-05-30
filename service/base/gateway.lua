@@ -22,7 +22,7 @@ local MAX_CONNECT_COUNT = 500
 local CLOSE_CODE = {
     HEART_BEAT_DISCONNECT = 1, -- 心跳断连
     FINAL_KICK = 2, -- 断线或顶替登录的踢出玩家最后一步
-    SERVER_EXIT = 3 -- 进程退出
+    SERVER_EXIT = 3 -- 服务退出
 }
 
 local function new_gateplayer()
@@ -86,7 +86,7 @@ local function disconnect(fd, code)
         return
     else -- 已在游戏中，踢玩家下线
         gate_players[playerid] = nil
-        -- 踢出的最后一步&进程退出，无需通知玩家下线
+        -- 踢出的最后一步&服务退出，无需通知玩家下线
         if code ~= CLOSE_CODE.FINAL_KICK and code ~= CLOSE_CODE.SERVER_EXIT then
             s.call(runconfig.unique.login_mgr.node, "login_mgr", "reqkick", playerid, "websocket disconnect")
         end
@@ -249,7 +249,7 @@ function s.resp.check_ping_timestamp(srcaddr)
     last_ping_timestamp = new_ping_timestamp
 end
 
--- 进程退出
+-- 服务退出
 function s.resp.srv_exit(srcaddr)
     for fd, _ in pairs(client_conns) do
         websocket.close(fd, CLOSE_CODE.SERVER_EXIT)
