@@ -1,5 +1,4 @@
 local skynet = require "skynet"
-local s = require "service"
 
 local is_enable = skynet.getenv("self_log_enable") == "true"
 local is_debug = skynet.getenv("self_log_debug") == "true"
@@ -26,6 +25,9 @@ local LOG_LEVEL_DESC = {
 }
 
 local function format_log_content(level, str)
+    -- 不能在文件头引用，避免循环引用
+    local s = require "service"
+
     return string.format("[:%08x][%s][%s][%s] %s", skynet.self(), s.name_register, os.date("%H:%M:%S"), LOG_LEVEL_DESC[level], str)
 end
 
