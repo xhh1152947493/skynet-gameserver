@@ -4,8 +4,6 @@ local is_enable = skynet.getenv("self_logenable") == "true"
 local is_debug = skynet.getenv("self_logdebug") == "true"
 local is_daemon = skynet.getenv("daemon") ~= nil
 
-is_daemon = true -- for debug
-
 local log = {}
 
 local LOG_LEVEL = {
@@ -33,19 +31,16 @@ end
 
 -- 未启用使用skynet.error标准输出
 local send_log_fun = function(level, str)
-    print("debug.......send_log_fun.......3",str)
     skynet.error(str)
 end
 
 if is_enable then
     if is_daemon then -- 后台运行模式，通知logger服写入文件记录log
         send_log_fun = function(level, str)
-            print("debug.......send_log_fun.......1",str)
             skynet.send(".logger123", "lua", "logging", format_log_content(level, str))
         end
     else -- 非后台运行模式，直接打印结果
         send_log_fun = function(level, str)
-            print("debug.......send_log_fun.......2",str)
             print(format_log_content(level, str))
         end
     end

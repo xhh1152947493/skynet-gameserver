@@ -6,8 +6,7 @@ local log = require "log"
 skynet.start(
     -- 顺序启动服务，任何一个服务启动失败则退出进程
     function()
-        local addr = skynet.newservice("logger", "logger123") -- 启动logger服务
-        print("fasfsafasfsafsafsafas-------addr", addr)
+        local addr = skynet.newservice("_logger", "_logger") -- 启动logger服务，_前缀是为了避免与skynet系统的logger服务冲突
 
         local selfnode = skynet.getenv("node")
         log.info("[--------start bootstrap main--------] node: " .. selfnode)

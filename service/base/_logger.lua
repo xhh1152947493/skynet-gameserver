@@ -1,6 +1,7 @@
 local skynet = require "skynet"
 local s = require "service"
 local lfs = require "lfs"
+local log = require "log"
 
 local log_path = skynet.getenv("self_logpath")
 local is_debug = skynet.getenv("self_logdebug") == "true"
@@ -9,12 +10,11 @@ local _current_file = nil
 
 local function check_exists(path)
     local attr = lfs.attributes(path)
-    print("check_exists...........1", path, attr)
     if not attr then
         lfs.mkdir(path)
-        print("check_exists...........2", path, attr)
+        log.info(string.format("logger check_exists and create path:%s", path))
     elseif attr.mode ~= "directory" then
-        print(path .. " exists but is not a directory")
+        log.info(string.format("logger check_exists, exists but is not a directory. path:%s", path))
     end
 end
 
@@ -39,34 +39,28 @@ local function new_file()
 
     local file, err = io.open(full_file(file_name), "a")
 
-    print("new_file...........end", file, file_name, err)
+    log.info(string.format("logger new_file end. file_name:%s err:%s", file_name, err))
     return file
 end
 
 -- 避免无限生成文件
 local function checkfix_file_count()
-    print("checkfix_file_count...........start")
-
-    -- if is_debug then
-    --     return
-    -- end
+    if is_debug then
+        return
+    end
 
     local oldest_file = ""
     local file_count = 0
     for file_name in lfs.dir(log_path) do
         if file_name ~= "." and file_name ~= ".." then
-            print("checkfix_file_count...........1", file_name)
             local file_path = full_file(file_name)
-            print("checkfix_file_count...........2", file_path)
             local mode = lfs.attributes(file_path, "mode")
-            print("checkfix_file_count...........3", mode)
 
             if mode == "file" then
                 local oldest_num = tonumber(oldest_file) or 999999999999
                 local cur_file = file_name:match("(.*)%.log$")
                 local cur_num = tonumber(cur_file)
 
-                print("checkfix_file_count...........4", oldest_num, cur_file, cur_num)
                 if cur_num < oldest_num then
                     oldest_file = cur_file
                 end
@@ -75,45 +69,42 @@ local function checkfix_file_count()
         end
     end
 
-    print("checkfix_file_count...........end", file_count)
+    log.info(string.format("logger checkfix_file_count end. oldest_file:%s file_count:%s", oldest_file, file_count))
 
     if file_count > 200 then
         os.remove(full_file(oldest_file))
+
+        log.info(string.format("logger checkfix_file_count remove fail. oldest_file:%s file_count:%s", oldest_file, file_count))
     end
 end
 
 local function time_file()
-    print("time_file........... 1")
     if _current_file ~= nil then -- 文件正在写入中会导致关闭失败，资源得不到释放？Todo zhangzhihui
         _current_file:close()
     end
 
+    local oldest_file = _current_file
+
     local file = new_file()
-    if not file then
-        print("time_file........... 2")
-        return
+    if  file then
+        _current_file = file
     end
 
-    print("time_file........... 3", file)
-
-    _current_file = file
+    log.info(string.format("logger time_file, choice new file. oldest_file:%s new_file:%s", oldest_file, _current_file))
 
     checkfix_file_count()
 
     -- 每5分钟创建一个新文件
-    skynet.timeout(_G.SKYNET_MINUTE * 1, time_file)
+    skynet.timeout(_G.SKYNET_MINUTE * 5, time_file)
 end
 
 function s.resp.logging(source, str)
-    print("logging........... 0", str)
     if not _current_file then
         return
     end
 
-    print("logging........... 1", str)
     _current_file:write(str .. "\n")
     _current_file:flush()
-    print("logging........... 2", str)
 end
 
 -- 服务退出

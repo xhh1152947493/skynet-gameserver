@@ -52,7 +52,6 @@ end
 
 function skynet.register(name)
 	if not globalname(name) then
-		print("skynet.register(name)-----------", name) -- zhangzhihui
 		c.command("REG", name)
 	end
 end
