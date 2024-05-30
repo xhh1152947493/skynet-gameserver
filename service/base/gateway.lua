@@ -260,7 +260,7 @@ end
 function s.initfunc()
     local node = skynet.getenv("node")
 
-    local function find_port()
+    local find_port = function()
         for _, info in pairs(runconfig[node]) do
             if info.name == "gateway" then
                 for id, v in ipairs(info.list) do

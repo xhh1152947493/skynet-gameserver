@@ -6,7 +6,7 @@ local log = require "log"
 
 local _tips = "Please enter cmd.\r\nStop:stop all server and abort this skynet node\r\n"
 
-local _Command = {}
+local _command = {}
 
 local function read_with_timeout(fd, timeout)
     local result
@@ -16,6 +16,7 @@ local function read_with_timeout(fd, timeout)
     skynet.timeout(
         timeout,
         function()
+            log.debug("admin timeout on fd: " .. fd)
             skynet.wakeup(co)
         end
     )
@@ -24,6 +25,7 @@ local function read_with_timeout(fd, timeout)
     skynet.fork(
         function()
             result = socket.readline(fd, "\r\n")
+            log.debug("admin readline on fd: " .. fd)
             skynet.wakeup(co)
         end
     )
@@ -45,7 +47,7 @@ local function connect(fd, addr)
             return
         end
 
-        local cb = _Command[cmd]
+        local cb = _command[cmd]
         if cb == nil then
             socket.write(fd, string.format("This cmd:%s not found\r\n", cmd))
         else
@@ -54,12 +56,12 @@ local function connect(fd, addr)
     end
 end
 
-function _Command.Close(fd)
+function _command.Close(fd)
     socket.write(fd, "connection closed by cmd close.\r\n")
     socket.close(fd)
 end
 
-function _Command.Stop(fd)
+function _command.Stop(fd)
 end
 
 s.initfunc = function()
