@@ -9,8 +9,10 @@ local _current_file = nil
 
 local function check_exists(path)
     local attr = lfs.attributes(path)
+    print("check_exists...........1", path ,attr)
     if not attr then
         lfs.mkdir(path)
+        print("check_exists...........2", path ,attr)
     elseif attr.mode ~= "directory" then
         print(path .. " exists but is not a directory")
     end
@@ -35,9 +37,9 @@ local function new_file()
     )
     local file_name = formatted_time .. ".log"
 
-    local file, _ = io.open(full_file(file_name), "a")
+    local file, err = io.open(full_file(file_name), "a")
 
-    print("new_file...........end", file, file_name)
+    print("new_file...........end", file, file_name, err)
     return file
 end
 
