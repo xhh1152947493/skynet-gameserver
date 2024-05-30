@@ -44,7 +44,7 @@ end
 if is_enable then
     if is_daemon then -- 后台运行模式，通知logger服写入文件记录log
         send_log_fun = function(level, str)
-            skynet.send(".logger123", "lua", "logging", format_log_content(level, str))
+            skynet.send("._logger", "lua", "logging", format_log_content(level, str))
         end
     else -- 非后台运行模式，直接打印结果
         send_log_fun = function(level, str)
