@@ -1,7 +1,7 @@
 local skynet = require "skynet"
 
-local is_enable = skynet.getenv("self_log_enable") == "true"
-local is_debug = skynet.getenv("self_log_debug") == "true"
+local is_enable = skynet.getenv("self_logenable") == "true"
+local is_debug = skynet.getenv("self_logdebug") == "true"
 local is_daemon = skynet.getenv("daemon") ~= nil
 
 is_daemon = true -- for debug

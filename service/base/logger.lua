@@ -3,16 +3,16 @@ local s = require "service"
 local lfs = require "lfs"
 
 local log_path = skynet.getenv("self_logpath")
-local is_debug = skynet.getenv("self_log_debug") == "true"
+local is_debug = skynet.getenv("self_logdebug") == "true"
 
 local _current_file = nil
 
 local function check_exists(path)
     local attr = lfs.attributes(path)
-    print("check_exists...........1", path ,attr)
+    print("check_exists...........1", path, attr)
     if not attr then
         lfs.mkdir(path)
-        print("check_exists...........2", path ,attr)
+        print("check_exists...........2", path, attr)
     elseif attr.mode ~= "directory" then
         print(path .. " exists but is not a directory")
     end
@@ -101,7 +101,7 @@ local function time_file()
     checkfix_file_count()
 
     -- 每5分钟创建一个新文件
-    skynet.sleep(_G.SKYNET_MINUTE * 1)
+    skynet.timeout(_G.SKYNET_MINUTE * 1, time_file)
 end
 
 function s.resp.logging(source, str)
@@ -125,7 +125,7 @@ s.initfunc = function()
 
     check_exists(log_path)
 
-    skynet.fork(time_file)
+    time_file()
 end
 
 s.start(...)
