@@ -2,6 +2,7 @@ local skynet = require "skynet.manager"
 local s = require "service"
 local runconfig = require "runconfig"
 local socket = require "skynet.socket"
+local log = require "log"
 
 local _tips = "Please enter cmd.\r\nStop:stop all server and abort this skynet node\r\n"
 
@@ -63,11 +64,15 @@ end
 
 s.initfunc = function()
     local selfnode = skynet.getenv("node")
-    local port = runconfig.debug_console[selfnode].port
 
+    local port = runconfig.debug_console[selfnode].port
     assert(port ~= nil and port ~= 0, "fail to find admin port: " .. port)
 
     local listen_id = socket.listen("127.0.0.1", port) -- 只监听本地端口
+    assert(listen_id, "failed to listen admin on port: " .. port)
+
+    log.info("admin listen on port: " .. port)
+
     socket.start(listen_id, connect)
 end
 
