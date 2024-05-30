@@ -65,7 +65,7 @@ end
 s.initfunc = function()
     local selfnode = skynet.getenv("node")
 
-    local port = runconfig.debug_console[selfnode].port
+    local port = runconfig.admin[selfnode].port
     assert(port ~= nil and port ~= 0, "fail to find admin port: " .. port)
 
     local listen_id = socket.listen("127.0.0.1", port) -- 只监听本地端口
