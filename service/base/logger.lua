@@ -1,159 +1,108 @@
 local skynet = require "skynet"
-local log = require "log"
 local s = require "service"
+local lfs = require "lfs"
 
-local MAIN_LOG_NAME = "skynet"
-local ZERO_MOVE_TIME = 0 --second
-local DEFAULT_FILE_MODE = "w"
+local log_path = skynet.getenv("self_logpath")
+local is_debug = skynet.getenv("self_log_debug") == "true"
 
-local init = false
-local log_service = {}
-local service_file = {}
-local log_service_no_change = {}
-local dir_path = {}
-local file_mode = {}
-local is_daemon = skynet.getenv("daemon") ~= nil
-local log_path = skynet.getenv("logpath")
+local _current_file = nil
 
 local function check_exists(path)
-    if not os.rename(path, path) then
-        os.execute("mkdir " .. path)
+    local attr = lfs.attributes(path)
+    if not attr then
+        lfs.mkdir(path)
+    elseif attr.mode ~= "directory" then
+        print(path .. " exists but is not a directory")
     end
 end
 
-local function time_dir()
-    local now = math.floor(skynet.time())
-    local curr_time = {}
-    curr_time.year = os.date("%Y", now)
-    curr_time.month = os.date("%m", now)
-    curr_time.day = os.date("%d", now)
+local function new_file()
+    local timestamp = math.floor(skynet.time())
+    local current_time = os.date("*t", timestamp)
 
-    log_path = skynet.getenv("logpath") .. curr_time.year .. curr_time.month .. curr_time.day .. "/"
-    check_exists(log_path)
-    for _, path in pairs(dir_path) do
-        check_exists(log_path .. path)
-    end
-
-    for source, file in pairs(service_file) do
-        if not log_service_no_change[source] then
-            service_file[source] = nil
-            io.close(file)
-        end
-    end
-
-    local tomorrow_zore_time =
-        os.time({year = curr_time.year, month = curr_time.month, day = curr_time.day, hour = 0, min = 0, sec = 0}) +
-        86400 +
-        ZERO_MOVE_TIME
-
-    skynet.timeout(
-        (tomorrow_zore_time - now) * 100,
-        function()
-            time_dir()
-        end
+    local formatted_time =
+        string.format(
+        "%04d%02d%02d-%02d:%02d",
+        current_time.year,
+        current_time.month,
+        current_time.day,
+        current_time.hour,
+        current_time.min
     )
+    local file_name = formatted_time .. ".log"
+
+    lfs.touch(log_path .. file_name)
+
+    local file, _ = io.open(file_name, "a")
+    return file
 end
 
-local function file_path(path_file)
-    return log_path .. path_file .. ".log"
-end
-
-local function try_open_file(source)
-    local path_file = MAIN_LOG_NAME
-    local opend_file = service_file[0]
-    if log_service[source] then
-        path_file = log_service[source]
-        opend_file = service_file[source]
-    end
-
-    if opend_file then
-        return opend_file
-    end
-
-    local args = DEFAULT_FILE_MODE
-    if file_mode[source] then
-        args = file_mode[source]
-    end
-    local f, e = io.open(file_path(path_file), args)
-    if not f then
-        print("error", path_file)
+-- 避免无限生成文件
+local function checkfix_file_count()
+    if is_debug then
         return
     end
-    if log_service[source] then
-        service_file[source] = f
-    else
-        service_file[0] = f
-    end
 
-    return f
-end
+    local oldest_file = ""
+    local file_count = 0
+    for file_name in lfs.dir(log_path) do
+        if file_name ~= "." and file_name ~= ".." then
+            local file_path = log_path .. file_name
+            local mode = lfs.attributes(file_path, "mode")
 
-local function log_time()
-    local now = math.floor(skynet.time())
-    return string.format(
-        "%02d:%02d:%02d",
-        tonumber(os.date("%H", now)),
-        tonumber(os.date("%M", now)),
-        tonumber(os.date("%S", now))
-    )
-end
-
-local logging_fun = function(str)
-    print(str)
-end
-if is_daemon then
-    logging_fun = function(str, source)
-        local opend_file = try_open_file(source)
-
-        opend_file:write(str .. "\n")
-        opend_file:flush()
-    end
-end
-
-function s.resp.logging(source, type, str)
-    str = string.format("[:%08x][%s][%s] %s", source, log_time(), type, str)
-
-    logging_fun(str, source)
-end
-
-function s.resp.separate(source, path, file, no_change_dir, mode)
-    if is_daemon then
-        file_mode[source] = mode or DEFAULT_FILE_MODE
-        check_exists(log_path .. path)
-        dir_path[source] = path
-        log_service[source] = path .. "/" .. file
-        if no_change_dir then
-            log_service_no_change[source] = true
+            if mode == "file" then
+                local oldest_num = tonumber(oldest_file) or 0
+                local cur_file = file_name:match("(.*)%.log$")
+                local cur_num = tonumber(cur_file)
+                if cur_num < oldest_num then
+                    oldest_file = cur_file
+                end
+                file_count = file_count + 1
+            end
         end
     end
-end
 
-function s.resp.close(source)
-    if is_daemon and log_service[source] and service_file[source] then
-        io.close(service_file[source])
-        log_service[source] = nil
-        service_file[source] = nil
-        file_mode[source] = nil
+    if file_count > 200 then
+        os.remove(log_path .. oldest_file)
     end
 end
 
-function s.resp.forward(source, path, file, no_change_dir, mode)
-    if is_daemon then
-        if not path then
-            s.resp.close(source)
-        else
-            s.resp.close(source)
-            s.resp.separate(source, path, file, no_change_dir)
-            file_mode[source] = mode or DEFAULT_FILE_MODE
-        end
+local function time_file()
+    if _current_file ~= nil then
+        _current_file:close()
     end
+
+    local file = new_file()
+    if not file then
+        return
+    end
+
+    _current_file = file
+
+    checkfix_file_count()
+
+    -- 每5分钟创建一个新文件
+    skynet.sleep(_G.SKYNET_MINUTE * 5)
 end
 
-time_dir()
+function s.resp.logging(source, str)
+    if not _current_file then
+        return
+    end
+
+    _current_file:write(str .. "\n")
+    _current_file:flush()
+end
 
 -- 服务退出
 function s.resp.srv_exit(srcaddr)
     skynet.exit()
+end
+
+s.initfunc = function()
+    check_exists(log_path)
+
+    skynet.fork(time_file)
 end
 
 s.start(...)

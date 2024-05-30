@@ -7,7 +7,7 @@ local log = require "log"
 local directory_path = "./config/server_json/"
 
 local function load_jsoncfg(filename)
-    log.info("load json start...: ", filename)
+    log.info("load json start...: " .. filename)
 
     local cfgname = filename:match("/([^/]+)%.json$")
     if cfgmgr[cfgname] == nil then

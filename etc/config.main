@@ -1,12 +1,15 @@
 include "config.common"
 
---logger = "./userlog"
---daemon = "./skynet.pid"
+-- skynet的log配置项
+-- logger  = "./userlog"
+-- logpath = "./log/main"
 
+-- 以后台模式运行,进程pid写入此文件
+daemon = "./skynet.pid"
 
-my_logger = true
-log_debug = false
-daemon    = true
-logpath   = "./log/main"
+-- 自定义的log配置项
+self_logenable = "true"
+self_logdebug  = "false"
+self_logpath   = "./log/main/"
 
 node = "main"

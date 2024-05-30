@@ -222,7 +222,7 @@ function s.resp.kick(srcaddr, playerid)
 
     websocket.close(conn.fd, CLOSE_CODE.FINAL_KICK)
 
-    log.info("gate kick. pid: ", playerid)
+    log.info("gate kick. pid: " .. playerid)
 end
 
 function s.resp.set_ping_timestamp(srcaddr, fd, time)

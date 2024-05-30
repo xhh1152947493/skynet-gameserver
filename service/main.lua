@@ -9,7 +9,7 @@ skynet.start(
         skynet.newservice("logger", "logger") -- 启动logger服务
 
         local selfnode = skynet.getenv("node")
-        log.info("[--------start bootstrap main--------] node: ", selfnode)
+        log.info("[--------start bootstrap main--------] node: " .. selfnode)
 
         cluster.reload(runconfig.cluster) -- 重新加载集群配置
         cluster.open(selfnode) -- 打开当前节点
@@ -30,7 +30,7 @@ skynet.start(
 
         skynet.newservice("admin", "admin") -- 本节点管理服
 
-        log.info("[--------end bootstrap main--------] node: ", selfnode)
+        log.info("[--------end bootstrap main--------] node: " .. selfnode)
         skynet.exit()
     end
 )

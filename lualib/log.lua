@@ -1,8 +1,11 @@
 local skynet = require "skynet"
-local debug_swith = skynet.getenv("log_debug")
+local s = require "service"
 
-local user_logger_swith = skynet.getenv("my_logger")
+local is_enable = skynet.getenv("self_log_enable") == "true"
+local is_debug = skynet.getenv("self_log_debug") == "true"
 local is_daemon = skynet.getenv("daemon") ~= nil
+
+is_daemon = true -- for debug
 
 local log = {}
 
@@ -14,8 +17,6 @@ local LOG_LEVEL = {
     FATAL = 5
 }
 
-local OUT_PUT_LEVEL = LOG_LEVEL.DEBUG
-
 local LOG_LEVEL_DESC = {
     [1] = "DEBUG",
     [2] = "INFO",
@@ -24,86 +25,62 @@ local LOG_LEVEL_DESC = {
     [5] = "FATAL"
 }
 
+local function format_log_content(level, str)
+    return string.format("[:%08x][%s][%s][%s] %s", skynet.self(), s.name_register, os.date("%H:%M:%S"), LOG_LEVEL_DESC[level], str)
+end
+
+-- 未启用使用skynet.error标准输出
 local send_log_fun = function(level, str)
     skynet.error(str)
 end
-if user_logger_swith then
-    if is_daemon then
+
+if is_enable then
+    if is_daemon then -- 后台运行模式，通知logger服写入文件记录log
         send_log_fun = function(level, str)
-            skynet.send(".logger", "lua", "logging", LOG_LEVEL_DESC[level], str)
+            skynet.send(".logger", "lua", "logging", format_log_content(level, str))
         end
-    else
+    else -- 非后台运行模式，直接打印结果
         send_log_fun = function(level, str)
-            print(string.format("[:%08x][%s][%s] %s", skynet.self(), os.date("%H:%M:%S"), LOG_LEVEL_DESC[level], str))
+            print(format_log_content(level, str))
         end
     end
 end
 
-local function send_log(level, ...)
-    local str = ""
-    local args_num = select("#", ...)
-    if args_num == 1 then
-        str = tostring(...)
-    elseif args_num > 1 then
-        local t = {...}
-        for i = 1, #t do
-            str = str .. tostring(t[i])
-            if i ~= #t then
-                str = str .. " "
-            end
-        end
-    end
+local function send_log(level, content)
+    local str = content
 
-    if level >= LOG_LEVEL.WARN then
+    if level >= LOG_LEVEL.WARN then -- 追加打印出错的文件与行号
         local info = debug.getinfo(3)
         if info then
             local filename = string.match(info.short_src, "[^/.]+.lua")
-            str = string.format("%s   <%s:%d>", str, filename, info.currentline)
+            str = string.format("%s  <%s:%d>", str, filename, info.currentline)
         end
     end
 
     send_log_fun(level, str)
 end
 
-function log.separate(path, file, no_change_dir, mode)
-    if is_daemon and user_logger_swith then
-        skynet.call(".logger", "lua", "separate", path, file, no_change_dir, mode)
-    end
-end
-
-function log.close()
-    if is_daemon and user_logger_swith then
-        skynet.call(".logger", "lua", "close")
-    end
-end
-
-function log.forward(path, file, no_change_dir, mode)
-    if is_daemon and user_logger_swith then
-        skynet.call(".logger", "lua", "forward", path, file, no_change_dir, mode)
-    end
-end
-
-function log.debug(...)
-    if not debug_swith then
+function log.debug(content)
+    if not is_debug then -- 非debug模式,不记录debug等级日志
         return
     end
-    send_log(LOG_LEVEL.DEBUG, ...)
+    send_log(LOG_LEVEL.DEBUG, content)
 end
 
-function log.info(...)
-    send_log(LOG_LEVEL.INFO, ...)
+function log.info(content)
+    send_log(LOG_LEVEL.INFO, content)
 end
 
-function log.warning(...)
-    send_log(LOG_LEVEL.WARN, ...)
+function log.warning(content)
+    send_log(LOG_LEVEL.WARN, content)
 end
 
-function log.error(...)
-    send_log(LOG_LEVEL.ERROR, ...)
+function log.error(content)
+    send_log(LOG_LEVEL.ERROR, content)
 end
 
-function log.fatal(...)
-    send_log(LOG_LEVEL.FATAL, ...)
+function log.fatal(content)
+    send_log(LOG_LEVEL.FATAL, content)
 end
 
 return log

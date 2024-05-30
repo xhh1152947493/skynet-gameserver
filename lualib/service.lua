@@ -7,6 +7,7 @@ local pbtool = require "pbtool"
 -- 每个服务单独保有一份
 local service = {
     name = "",
+    name_register = "",
     id = nil,
     exitfunc = nil,
     initfunc = nil,
@@ -45,6 +46,7 @@ local function initfunc()
     if service.initfunc then
         service.initfunc()
     end
+    service.register_name()
 
     service.bootstraped = true
 
@@ -54,7 +56,7 @@ local function initfunc()
             skynet.getenv("node"),
             service.name,
             service.id,
-            service.register_name()
+            service.name_register
         )
     )
 end
@@ -121,8 +123,8 @@ function service.register_name()
     else
         name = string.format(".%s", service.name)
     end
-    skynet.register(name)
-    return name
+    service.name_register = name
+    skynet.register(service.name_register)
 end
 
 function service.resp.is_bootstraped(srcaddr)
