@@ -109,8 +109,10 @@ function s.resp.logging(source, str)
         return
     end
 
+    print("logging........... 1", str)
     _current_file:write(str .. "\n")
     _current_file:flush()
+    print("logging........... 2", str)
 end
 
 -- 服务退出
@@ -119,6 +121,8 @@ function s.resp.srv_exit(srcaddr)
 end
 
 s.initfunc = function()
+    require "common_def"
+
     check_exists(log_path)
 
     skynet.fork(time_file)
