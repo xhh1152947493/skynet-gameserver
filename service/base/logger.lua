@@ -9,12 +9,15 @@ local _current_file = nil
 
 local function check_exists(path)
     local attr = lfs.attributes(path)
-    print("check_exists...........", path, attr)
     if not attr then
         lfs.mkdir(path)
     elseif attr.mode ~= "directory" then
         print(path .. " exists but is not a directory")
     end
+end
+
+local function full_file(file_name)
+    return log_path .. file_name
 end
 
 local function new_file()
@@ -32,25 +35,23 @@ local function new_file()
     )
     local file_name = formatted_time .. ".log"
 
-    lfs.touch(log_path .. file_name)
-
-    local file, _ = io.open(file_name, "a")
+    local file, _ = io.open(full_file(file_name), "a")
     return file
 end
 
 -- 避免无限生成文件
 local function checkfix_file_count()
-    print("checkfix_file_count...........")
+    print("checkfix_file_count...........start")
 
-    if is_debug then
-        return
-    end
+    -- if is_debug then
+    --     return
+    -- end
 
     local oldest_file = ""
     local file_count = 0
     for file_name in lfs.dir(log_path) do
         if file_name ~= "." and file_name ~= ".." then
-            local file_path = log_path .. file_name
+            local file_path = full_file(file_name)
             local mode = lfs.attributes(file_path, "mode")
 
             if mode == "file" then
@@ -65,8 +66,10 @@ local function checkfix_file_count()
         end
     end
 
+    print("checkfix_file_count...........end", file_count)
+
     if file_count > 200 then
-        os.remove(log_path .. oldest_file)
+        os.remove(full_file(oldest_file))
     end
 end
 
