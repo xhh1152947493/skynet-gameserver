@@ -23,6 +23,7 @@ end
 
 -- 服务器的各service之间通信
 local function dispatch(session, srcaddr, cmd, ...)
+    print("dispatch---------------", srcaddr, cmd)
     local fun = service.resp[cmd]
     if not fun then
         skynet.ret()

@@ -84,7 +84,7 @@ end
 
 local function time_file()
     print("time_file........... 1")
-    if _current_file ~= nil then
+    if _current_file ~= nil then -- 文件正在写入中会导致关闭失败，资源得不到释放？Todo zhangzhihui
         _current_file:close()
     end
 
@@ -105,6 +105,7 @@ local function time_file()
 end
 
 function s.resp.logging(source, str)
+    print("logging........... 0", str)
     if not _current_file then
         return
     end
