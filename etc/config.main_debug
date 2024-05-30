@@ -6,6 +6,7 @@ include "config.common"
 
 my_logger = true
 log_debug = true
+daemon    = false
 logpath   = "./log/main"
 
 node = "main"
