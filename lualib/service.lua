@@ -127,6 +127,7 @@ function service.register_name()
     end
     service.name_register = name
     skynet.register(service.name_register)
+    log.info(string.format("server register name success. addr:%s register_name:%s", skynet.self(), service.name_register))
 end
 
 function service.resp.is_bootstraped(srcaddr)
