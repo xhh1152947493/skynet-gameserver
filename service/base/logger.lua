@@ -62,7 +62,7 @@ local function checkfix_file_count()
             print("checkfix_file_count...........3", mode)
 
             if mode == "file" then
-                local oldest_num = tonumber(oldest_file) or 0
+                local oldest_num = tonumber(oldest_file) or 999999999999
                 local cur_file = file_name:match("(.*)%.log$")
                 local cur_num = tonumber(cur_file)
 
