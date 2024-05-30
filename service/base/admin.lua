@@ -4,7 +4,7 @@ local runconfig = require "runconfig"
 local socket = require "skynet.socket"
 local log = require "log"
 
-local _tips = "Please enter cmd.\r\nStop:stop all server and abort this skynet node\r\n"
+local _tips = "\nPlease enter cmd.\r\nStop:stop all server and abort this skynet node\r\n"
 
 local _command = {}
 
@@ -20,7 +20,7 @@ local function read_with_timeout(fd, timeout)
         function()
             if not _cancel then
                 skynet.wakeup(co)
-                log.debug("admin timeout on fd: " .. fd)
+                log.info("admin timeout on fd: " .. fd)
             end
         end
     )
@@ -28,10 +28,10 @@ local function read_with_timeout(fd, timeout)
     -- 异步读取数据
     skynet.fork(
         function()
-            result = socket.readline(fd, "\r\n")
+            result = socket.readline(fd, "\r\n") -- 客户端quit telnet 时, result为false
             _cancel = true
             skynet.wakeup(co)
-            log.debug(string.format("admin readline on fd:%s msg:%s", fd, result))
+            log.info(string.format("admin readline on fd:%s msg:%s", fd, result))
         end
     )
 
@@ -48,7 +48,7 @@ local function connect(fd, addr)
     while true do
         local cmd = read_with_timeout(fd, 6000) -- 设置超时时间为60秒（6000 * 0.01秒）
         if not cmd then
-            socket.write(fd, "connection closed by timeout.\r\n")
+            socket.write(fd, "connection closed by timeout or client quit.\r\n") -- 超时或客户端主动关闭连接
             socket.close(fd)
             log.info(string.format("admin close connet by timeout on fd:%s", fd))
             return
@@ -58,15 +58,11 @@ local function connect(fd, addr)
         if cb == nil then
             socket.write(fd, string.format("This cmd:%s not found\r\n", cmd))
         else
+            log.info(string.format("admin start execute cmd:%s on fd:%s", cmd, fd))
             cb(fd)
+            log.info(string.format("admin over execute cmd:%s on fd:%s", cmd, fd))
         end
     end
-end
-
-function _command.Close(fd)
-    socket.write(fd, "connection closed by cmd.\r\n")
-    socket.close(fd)
-    log.info(string.format("admin close connet by cmd on fd:%s", fd))
 end
 
 function _command.Stop(fd)
