@@ -26,7 +26,7 @@ local function new_file()
 
     local formatted_time =
         string.format(
-        "%04d%02d%02d-%02d:%02d",
+        "%04d%02d%02d%02d%02d",
         current_time.year,
         current_time.month,
         current_time.day,
@@ -36,6 +36,8 @@ local function new_file()
     local file_name = formatted_time .. ".log"
 
     local file, _ = io.open(full_file(file_name), "a")
+
+    print("new_file...........end", file, file_name)
     return file
 end
 
@@ -51,13 +53,18 @@ local function checkfix_file_count()
     local file_count = 0
     for file_name in lfs.dir(log_path) do
         if file_name ~= "." and file_name ~= ".." then
+            print("checkfix_file_count...........1", file_name)
             local file_path = full_file(file_name)
+            print("checkfix_file_count...........2", file_path)
             local mode = lfs.attributes(file_path, "mode")
+            print("checkfix_file_count...........3", mode)
 
             if mode == "file" then
                 local oldest_num = tonumber(oldest_file) or 0
                 local cur_file = file_name:match("(.*)%.log$")
                 local cur_num = tonumber(cur_file)
+
+                print("checkfix_file_count...........4", oldest_num, cur_file, cur_num)
                 if cur_num < oldest_num then
                     oldest_file = cur_file
                 end
@@ -74,22 +81,25 @@ local function checkfix_file_count()
 end
 
 local function time_file()
-    print("time_file...........")
+    print("time_file........... 1")
     if _current_file ~= nil then
         _current_file:close()
     end
 
     local file = new_file()
     if not file then
+        print("time_file........... 2")
         return
     end
+
+    print("time_file........... 3", file)
 
     _current_file = file
 
     checkfix_file_count()
 
     -- 每5分钟创建一个新文件
-    skynet.sleep(_G.SKYNET_MINUTE * 5)
+    skynet.sleep(_G.SKYNET_MINUTE * 1)
 end
 
 function s.resp.logging(source, str)
