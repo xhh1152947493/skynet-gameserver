@@ -12,12 +12,16 @@ local function read_with_timeout(fd, timeout)
     local result
     local co = coroutine.running()
 
+    local _cancel = false
+
     -- 创建一个定时器
     skynet.timeout(
         timeout,
         function()
-            log.debug("admin timeout on fd: " .. fd)
-            skynet.wakeup(co)
+            if not _cancel then
+                skynet.wakeup(co)
+                log.debug("admin timeout on fd: " .. fd)
+            end
         end
     )
 
@@ -25,8 +29,9 @@ local function read_with_timeout(fd, timeout)
     skynet.fork(
         function()
             result = socket.readline(fd, "\r\n")
-            log.debug("admin readline on fd: " .. fd)
+            _cancel = true
             skynet.wakeup(co)
+            log.debug(string.format("admin readline on fd:%s msg:%s", fd, result))
         end
     )
 
@@ -43,7 +48,9 @@ local function connect(fd, addr)
     while true do
         local cmd = read_with_timeout(fd, 6000) -- 设置超时时间为60秒（6000 * 0.01秒）
         if not cmd then
-            socket.write(fd, "Timeout or connection closed.\r\n")
+            socket.write(fd, "connection closed by timeout.\r\n")
+            socket.close(fd)
+            log.info(string.format("admin close connet by timeout on fd:%s", fd))
             return
         end
 
@@ -57,8 +64,9 @@ local function connect(fd, addr)
 end
 
 function _command.Close(fd)
-    socket.write(fd, "connection closed by cmd close.\r\n")
+    socket.write(fd, "connection closed by cmd.\r\n")
     socket.close(fd)
+    log.info(string.format("admin close connet by cmd on fd:%s", fd))
 end
 
 function _command.Stop(fd)
