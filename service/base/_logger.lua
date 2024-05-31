@@ -32,16 +32,15 @@ local function new_file()
     local timestamp = math.floor(skynet.time())
     local current_time = os.date("*t", timestamp)
 
-    local formatted_time =
-        string.format(
-        "%04d%02d%02d%-02d%:02d:02d",
-        current_time.year,
-        current_time.month,
-        current_time.day,
-        current_time.hour,
-        current_time.min,
-        current_time.sec
-    )
+    local formatted_time = string.format(
+    "%04d-%02d-%02d-%02d:%02d:%02d",
+    current_time.year,
+    current_time.month,
+    current_time.day,
+    current_time.hour,
+    current_time.min,
+    current_time.sec
+)
     local file_name = formatted_time .. ".log"
 
     local file, err = io.open(full_filepath(file_name), "a")
