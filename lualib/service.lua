@@ -150,7 +150,10 @@ function service.resp.srv_exit(srcaddr)
     if service.exitfunc then
         service.exitfunc()
     end
-    skynet.send(skynet.self(), "lua", "skynet_exit") -- 不能立即退出会导致返回值不被发送方接收,等下一帧消息接收
+    
+    skynet.exit()
+
+    -- skynet.send(skynet.self(), "lua", "skynet_exit") -- 不能立即退出会导致返回值不被发送方接收,等下一帧消息接收
 
     log.info(string.format("server execute srv_exit end. register_name:%s", skynet.self(), service.register_name))
     return true

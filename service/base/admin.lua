@@ -87,7 +87,7 @@ function _command.Stop(fd)
     local function call_srv_exit(node, srv_name)
         -- 等待目标服务退出并返回
         log.info(string.format("admin call_srv_exit. node:%s srv_game:%s", node, srv_name))
-        s.call(node, srv_name, "lua", "srv_exit")
+        s.call(node, srv_name, "srv_exit")
     end
 
     local function range_srv_all_node(name, fn)
@@ -125,10 +125,12 @@ function _command.Stop(fd)
         call_srv_exit(selfnode, ".login_mgr")
     end
 
-    log.info("admin stop all server success!")
-
     call_srv_exit(selfnode, "._logger")
 
+    local wait_second = _G.SKYNET_SECOND * 5
+    log.info(string.format("admin stop all server success!, srv exit wait %d second.", wait_second))
+
+    skynet.sleep(wait_second) -- 等待其余服务有退出的机会
     skynet.abort()
 end
 
