@@ -4,6 +4,8 @@ local is_enable = skynet.getenv("self_logenable") == "true"
 local is_debug = skynet.getenv("self_logdebug") == "true"
 local is_daemon = skynet.getenv("daemon") ~= nil
 
+is_daemon = true -- for debug zhangzhihui todo delete
+
 local log = {}
 
 local LOG_LEVEL = {

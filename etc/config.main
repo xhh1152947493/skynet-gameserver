@@ -11,6 +11,6 @@ daemon = "./skynet.pid"
 self_logenable = "true"
 self_logdebug  = "false"
 self_logpath   = "./log/main/"
--- self_logfile_count = 50
+self_logfile_count = 50
 
 node = "main"
