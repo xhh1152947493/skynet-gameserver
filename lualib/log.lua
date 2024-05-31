@@ -30,7 +30,7 @@ local function format_log_content(level, str)
 
     local timestamp_ms = skynet.time()
     local sec = math.floor(timestamp_ms)
-    local ms = (timestamp_ms - sec) * 1000
+    local ms = math.floor((timestamp_ms - sec) * 1000)
     local current_time = os.date("*t", sec)
 
     return string.format(
