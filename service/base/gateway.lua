@@ -19,6 +19,8 @@ local gate_players = {}
 -- 单网关最大连接数
 local MAX_CONNECT_COUNT = 500
 
+local _in_exiting = false
+
 local CLOSE_CODE = {
     HEART_BEAT_DISCONNECT = 1, -- 心跳断连
     FINAL_KICK = 2, -- 断线或顶替登录的踢出玩家最后一步
@@ -106,6 +108,10 @@ end
 local handle = {}
 
 function handle.connect(fd)
+    if _in_exiting then
+        return
+    end
+
     local conn = new_clientconn()
     conn.fd = fd
     conn.addr = websocket.addrinfo(fd)
@@ -250,6 +256,7 @@ function s.resp.check_ping_timestamp(srcaddr)
 end
 
 function s.exitfunc()
+    -- 拒绝新连接，断开当前所有连接
     for fd, _ in pairs(client_conns) do
         websocket.close(fd, CLOSE_CODE.SERVER_EXIT)
     end
