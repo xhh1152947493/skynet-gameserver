@@ -33,7 +33,7 @@ local function new_file()
     local current_time = os.date("*t", timestamp)
 
     local formatted_time = string.format(
-    "%04d-%02d-%02d-%02d:%02d:%02d",
+    "%04d%02d%02d-%02d:%02d:%02d",
     current_time.year,
     current_time.month,
     current_time.day,

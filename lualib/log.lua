@@ -4,7 +4,7 @@ local is_enable = skynet.getenv("self_logenable") == "true"
 local is_debug = skynet.getenv("self_logdebug") == "true"
 local is_daemon = skynet.getenv("daemon") ~= nil
 
-is_daemon = true -- for debug zhangzhihui todo delete
+-- is_daemon = true -- for debug zhangzhihui todo delete
 
 local log = {}
 
@@ -28,10 +28,15 @@ local function format_log_content(level, str)
     -- 不能在文件头引用，避免循环引用
     local s = require "service"
 
+    local timestamp_ms = skynet.time()
+    local sec = math.floor(timestamp_ms)
+    local ms = (timestamp_ms - sec) * 1000
+    local current_time = os.date("*t", sec)
+
     return string.format(
         "[:%08x][%s][%s][%s] %s",
         skynet.self(),
-        os.date("%H:%M:%S"),
+        string.format("%02d:%02d:%02d.%03d", current_time.hour, current_time.min, current_time.sec, ms),
         s.name_register,
         LOG_LEVEL_DESC[level],
         str
