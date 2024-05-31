@@ -141,11 +141,12 @@ function service.resp.is_bootstraped(srcaddr)
 end
 
 function service.resp.skynet_exit(srcaddr)
+    log.info(string.format("skynet exit. register_name:%s", service.register_name))
     skynet.exit()
 end
 
 function service.resp.srv_exit(srcaddr)
-    log.info(string.format("server execute srv_exit start. register_name:%s", skynet.self(), service.register_name))
+    log.info(string.format("server execute srv_exit start. register_name:%s", service.register_name))
 
     if service.exitfunc then
         service.exitfunc()
@@ -153,7 +154,7 @@ function service.resp.srv_exit(srcaddr)
 
     skynet.send(skynet.self(), "lua", "skynet_exit") -- 不能立即退出会导致发送方阻塞收不到消息,等下一帧消息退出服务
 
-    log.info(string.format("server execute srv_exit end. register_name:%s", skynet.self(), service.register_name))
+    log.info(string.format("server execute srv_exit end. register_name:%s", service.register_name))
     return true
 end
 
