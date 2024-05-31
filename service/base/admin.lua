@@ -127,10 +127,10 @@ function _command.Stop(fd)
 
     call_srv_exit(selfnode, "._logger")
 
-    local wait_second = _G.SKYNET_SECOND * 5
-    log.info(string.format("admin stop all server success!, srv exit wait %d second.", wait_second))
+    local shutdown_s = 5
+    log.info(string.format("admin stop all server success!, progess exit after %d second.", shutdown_s))
 
-    skynet.sleep(wait_second) -- 等待其余服务有退出的机会
+    skynet.sleep(shutdown_s * 100) -- 等待其余服务有退出的机会
     skynet.abort()
 end
 
