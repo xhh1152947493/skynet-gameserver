@@ -74,14 +74,12 @@ function s.resp.kick(srcaddr, playerid)
     event.publish_event(EVENT_MSG.EVENT_PLYAER_LOGOUT, playerid)
 end
 
--- 服务退出
-function s.resp.srv_exit(srcaddr)
+function s.exitfunc()
     for _, sys in ipairs(systems) do
         if sys.exit then
             sys.exit()
         end
     end
-    skynet.exit()
 end
 
 s.initfunc = function()

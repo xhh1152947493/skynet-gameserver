@@ -249,12 +249,10 @@ function s.resp.check_ping_timestamp(srcaddr)
     last_ping_timestamp = new_ping_timestamp
 end
 
--- 服务退出
-function s.resp.srv_exit(srcaddr)
+function s.exitfunc()
     for fd, _ in pairs(client_conns) do
         websocket.close(fd, CLOSE_CODE.SERVER_EXIT)
     end
-    skynet.exit()
 end
 
 function s.initfunc()

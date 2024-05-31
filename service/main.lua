@@ -4,20 +4,14 @@ local cluster = require "skynet.cluster"
 local log = require "log"
 
 skynet.start(
-    -- 顺序启动服务，任何一个服务启动失败则退出进程
     function()
-        local addr = skynet.newservice("_logger", "_logger") -- 启动logger服务，_前缀是为了避免与skynet系统的logger服务冲突
+        skynet.newservice("_logger", "_logger") -- 启动logger服务，_前缀是为了避免与skynet系统的logger服务冲突
 
         local selfnode = skynet.getenv("node")
         log.info("[--------start bootstrap main--------] node: " .. selfnode)
 
         cluster.reload(runconfig.cluster) -- 重新加载集群配置
         cluster.open(selfnode) -- 打开当前节点
-
-        if selfnode == runconfig.unique.login_mgr.node then
-            local addr = skynet.uniqueservice("login_mgr", "login_mgr")
-            cluster.register("login_mgr", addr) -- 注册login_mgr服务，不用.前缀，其他节点可以通过这个别名直接通信
-        end
 
         skynet.newservice("debug_console", runconfig.debug_console[selfnode].port) -- 启动debug_console服务
 
@@ -28,7 +22,10 @@ skynet.start(
             end
         end
 
-        skynet.newservice("admin", "admin") -- 本节点管理服
+        if selfnode == runconfig.unique.admin.node then
+            cluster.register("login_mgr", skynet.uniqueservice("login_mgr", "login_mgr")) -- 注册login_mgr服务，不用.前缀，其他节点可以通过这个别名直接通信
+            cluster.register("admin", skynet.uniqueservice("admin", "admin")) -- 管理服
+        end
 
         log.info("[--------end bootstrap main--------] node: " .. selfnode)
         skynet.exit()

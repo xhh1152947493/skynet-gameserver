@@ -7,7 +7,7 @@ local pbtool = require "pbtool"
 -- 每个服务单独保有一份
 local service = {
     name = "",
-    name_register = "",
+    register_name = "",
     id = nil,
     exitfunc = nil,
     initfunc = nil,
@@ -43,7 +43,7 @@ end
 local function initfunc()
     skynet.dispatch("lua", dispatch)
 
-    service.register_name()
+    service.set_register_name()
 
     if service.initfunc then
         service.initfunc()
@@ -57,7 +57,7 @@ local function initfunc()
             skynet.getenv("node"),
             service.name,
             service.id,
-            service.name_register,
+            service.register_name,
             skynet.self()
         )
     )
@@ -117,21 +117,43 @@ function service.send(node, dstaddr, ...)
     end
 end
 
--- 给当前服务在本节点内起一个别名
-function service.register_name()
-    local name = ""
-    if service.id ~= nil then
-        name = string.format(".%s%d", service.name, tonumber(service.id))
+function service.format_register_name(id, name)
+    local register_name = ""
+    if id ~= nil then
+        register_name = string.format(".%s%d", name, tonumber(id))
     else
-        name = string.format(".%s", service.name)
+        register_name = string.format(".%s", name)
     end
-    service.name_register = name
-    skynet.register(service.name_register)
-    log.info(string.format("server register name success. addr:%s register_name:%s", skynet.self(), service.name_register))
+    return register_name
+end
+
+-- 给当前服务在本节点内起一个别名
+function service.set_register_name()
+    service.register_name = service.format_register_name(service.id, service.name)
+    skynet.register(service.register_name)
+    log.info(
+        string.format("server register name success. addr:%s register_name:%s", skynet.self(), service.register_name)
+    )
 end
 
 function service.resp.is_bootstraped(srcaddr)
     return service.bootstraped
+end
+
+function service.resp.skynet_exit(srcaddr)
+    skynet.exit()
+end
+
+function service.resp.srv_exit(srcaddr)
+    log.info(string.format("server execute srv_exit start. register_name:%s", skynet.self(), service.register_name))
+
+    if service.exitfunc then
+        service.exitfunc()
+    end
+    skynet.send(skynet.self(), "lua", "skynet_exit") -- 不能立即退出会导致返回值不被发送方接收,等下一帧消息接收
+
+    log.info(string.format("server execute srv_exit end. register_name:%s", skynet.self(), service.register_name))
+    return true
 end
 
 -- 大坑，都是字符串形式传进来的

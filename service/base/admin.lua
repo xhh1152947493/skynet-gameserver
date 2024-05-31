@@ -24,13 +24,13 @@ local function read_with_timeout(fd, timeout)
     local result
     local co = coroutine.running()
 
-    local _cancel = false
+    local cancel = false
 
     -- 创建一个定时器
     skynet.timeout(
         timeout,
         function()
-            if not _cancel then
+            if not cancel then
                 skynet.wakeup(co)
                 log.info("admin timeout on fd: " .. fd)
             end
@@ -41,7 +41,7 @@ local function read_with_timeout(fd, timeout)
     skynet.fork(
         function()
             result = socket.readline(fd, "\r\n") -- 客户端quit telnet 时, result为false
-            _cancel = true
+            cancel = true
             skynet.wakeup(co)
             log.info(string.format("admin readline on fd:%s msg:%s", fd, result))
         end
@@ -77,7 +77,58 @@ local function connect(fd, addr)
     end
 end
 
+function _command.Help(fd)
+    socket.write(fd, _tips)
+end
+
 function _command.Stop(fd)
+    local selfnode = skynet.getenv("node")
+
+    local function call_srv_exit(node, srv_name)
+        -- 等待目标服务退出并返回
+        s.call(node, srv_name, "lua", "srv_exit")
+    end
+
+    local function range_srv_all_node(name, fn)
+        if not fn then
+            return
+        end
+
+        for node, _ in pairs(runconfig.cluster) do
+            for _, info in pairs(runconfig[node]) do
+                if info.name == name then
+                    for id, _ in ipairs(info.list) do
+                        fn(node, s.format_register_name(id, info.name))
+                    end
+                end
+            end
+        end
+    end
+
+    local node_srv_list = {
+        "gateway",
+        "login",
+        "srv_game"
+    }
+
+    for _, name in ipairs(node_srv_list) do
+        range_srv_all_node(
+            name,
+            function(node, srv_name)
+                call_srv_exit(node, srv_name)
+            end
+        )
+    end
+
+    if selfnode == "main" then
+        call_srv_exit(".login_mgr")
+    end
+
+    log.info("admin stop all server success!")
+
+    call_srv_exit("._logger")
+
+    skynet.abort()
 end
 
 s.initfunc = function()

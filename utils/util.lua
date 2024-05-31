@@ -49,6 +49,7 @@ end
 function util.timepoller()
     local poller = {time = util.second()}
 
+    -- 从上次触发到现在过了几个period
     function poller:poll(now, period)
         local delta = now - self.time
         if delta < 0 then
@@ -59,6 +60,11 @@ function util.timepoller()
         end
         self.time = now
         return math.floor(delta / period)
+    end
+
+    -- 从上次触发到现在是否经过了一个period
+    function poller:passed_time(now, period)
+        return self:poll(now, period) > 0
     end
 
     return poller

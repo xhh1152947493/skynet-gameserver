@@ -37,7 +37,7 @@ local function format_log_content(level, str)
         "[:%08x][%s][%s][%s] %s",
         skynet.self(),
         string.format("%02d:%02d:%02d.%03d", current_time.hour, current_time.min, current_time.sec, ms),
-        s.name_register,
+        s.register_name,
         LOG_LEVEL_DESC[level],
         str
     )
@@ -45,7 +45,7 @@ end
 
 -- 未启用使用skynet.error标准输出
 local send_log_fun = function(level, str)
-    skynet.error(str)
+    skynet.error(format_log_content(level, str))
 end
 
 if is_enable then

@@ -105,7 +105,7 @@ local function try_rebase_file()
         end
         _current_file.file:close() -- 创建成功关闭旧文件
 
-        set_cur_file(file, name) -- 设置写入为新文件
+        set_cur_file(file, name) -- 设s置写入为新文件
 
         check_max_file_count() -- 检查日志数量是否过多
     end
@@ -122,11 +122,6 @@ function s.resp.logging(source, str)
     _current_file.bytes_count = _current_file.bytes_count + #str
 
     try_rebase_file()
-end
-
--- 服务退出
-function s.resp.srv_exit(srcaddr)
-    skynet.exit()
 end
 
 s.initfunc = function()

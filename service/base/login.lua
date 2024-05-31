@@ -31,11 +31,6 @@ local function handle_login(fd, srcaddr, req)
     return nil, nil
 end
 
--- 服务退出
-function s.resp.srv_exit(srcaddr)
-    skynet.exit()
-end
-
 s.initfunc = function()
     s.register_clientmsg_handle(MESSAGE_TYPE.C2GS_LOGIN, handle_login)
 end

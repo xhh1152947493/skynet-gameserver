@@ -19,13 +19,14 @@ return {
                 max_packet_size = 1024 * 1024 * 16
             }
         },
-        db_redis = {}
+        db_redis = {},
+        admin = {
+            node = "main",
+            port = 8201
+        }
     },
     debug_console = {
         main = {port = 8001}
-    },
-    admin = {
-        main = {port = 8201}
     },
     -- gateway应该最后启动，启动时应该顺序启动保证启动完才启动下一个
     main = {
