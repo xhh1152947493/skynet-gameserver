@@ -11,5 +11,6 @@ include "config.common"
 self_logenable = "true"
 self_logdebug  = "true"
 self_logpath   = "./log/main/"
+-- self_logfile_count = 50
 
 node = "main"
