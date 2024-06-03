@@ -257,6 +257,8 @@ end
 
 function s.exitfunc()
     -- 拒绝新连接，断开当前所有连接
+    _in_exiting = true
+
     for fd, _ in pairs(client_conns) do
         websocket.close(fd, CLOSE_CODE.SERVER_EXIT)
     end
