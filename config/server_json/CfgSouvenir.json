@@ -20,5 +20,27 @@
     ],
     "StartingCount": 0,
     "RefillCount": 5
+  },
+  {
+    "ID": 2131,
+    "RefillCost": [
+      [
+        2,
+        1
+      ]
+    ],
+    "StartingCount": 8,
+    "RefillCount": 5
+  },
+  {
+    "ID": 2141,
+    "RefillCost": [
+      [
+        2,
+        2
+      ]
+    ],
+    "StartingCount": 8,
+    "RefillCount": 5
   }
 ]

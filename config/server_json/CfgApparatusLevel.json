@@ -108,98 +108,6 @@
     ]
   },
   {
-    "ID": 100201,
-    "Level": 0,
-    "SlotCount": 6
-  },
-  {
-    "ID": 100202,
-    "Level": 1,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        2300
-      ]
-    ]
-  },
-  {
-    "ID": 100203,
-    "Level": 2,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        4100
-      ],
-      [
-        2,
-        3
-      ]
-    ]
-  },
-  {
-    "ID": 100204,
-    "Level": 3,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        5500
-      ],
-      [
-        2,
-        6
-      ]
-    ]
-  },
-  {
-    "ID": 100301,
-    "Level": 0,
-    "SlotCount": 6
-  },
-  {
-    "ID": 100302,
-    "Level": 1,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        2900
-      ]
-    ]
-  },
-  {
-    "ID": 100303,
-    "Level": 2,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        4500
-      ],
-      [
-        2,
-        4
-      ]
-    ]
-  },
-  {
-    "ID": 100304,
-    "Level": 3,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        6000
-      ],
-      [
-        2,
-        5
-      ]
-    ]
-  },
-  {
     "ID": 100401,
     "Level": 0,
     "SlotCount": 2,
@@ -382,98 +290,6 @@
     ]
   },
   {
-    "ID": 101201,
-    "Level": 0,
-    "SlotCount": 6
-  },
-  {
-    "ID": 101202,
-    "Level": 1,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        2000
-      ]
-    ]
-  },
-  {
-    "ID": 101203,
-    "Level": 2,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        3500
-      ],
-      [
-        2,
-        3
-      ]
-    ]
-  },
-  {
-    "ID": 101204,
-    "Level": 3,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        4500
-      ],
-      [
-        2,
-        5
-      ]
-    ]
-  },
-  {
-    "ID": 101301,
-    "Level": 0,
-    "SlotCount": 4
-  },
-  {
-    "ID": 101302,
-    "Level": 1,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        2000
-      ]
-    ]
-  },
-  {
-    "ID": 101303,
-    "Level": 2,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        3500
-      ],
-      [
-        2,
-        3
-      ]
-    ]
-  },
-  {
-    "ID": 101304,
-    "Level": 3,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        4500
-      ],
-      [
-        2,
-        5
-      ]
-    ]
-  },
-  {
     "ID": 101401,
     "Level": 0,
     "SlotCount": 4,
@@ -505,7 +321,7 @@
   {
     "ID": 101601,
     "Level": 0,
-    "SlotCount": 6
+    "SlotCount": 4
   },
   {
     "ID": 102101,
@@ -588,52 +404,6 @@
       [
         2,
         2
-      ]
-    ]
-  },
-  {
-    "ID": 102201,
-    "Level": 0,
-    "SlotCount": 6
-  },
-  {
-    "ID": 102202,
-    "Level": 1,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        1500
-      ]
-    ]
-  },
-  {
-    "ID": 102203,
-    "Level": 2,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        2750
-      ],
-      [
-        2,
-        2
-      ]
-    ]
-  },
-  {
-    "ID": 102204,
-    "Level": 3,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        3500
-      ],
-      [
-        2,
-        4
       ]
     ]
   },
@@ -751,71 +521,9 @@
     ]
   },
   {
-    "ID": 103201,
-    "Level": 0,
-    "SlotCount": 3
-  },
-  {
-    "ID": 103202,
-    "Level": 1,
-    "SlotCount": 3,
-    "Cost": [
-      [
-        1,
-        3750
-      ]
-    ]
-  },
-  {
-    "ID": 103203,
-    "Level": 2,
-    "SlotCount": 3,
-    "Cost": [
-      [
-        1,
-        6000
-      ],
-      [
-        2,
-        5
-      ]
-    ]
-  },
-  {
     "ID": 103301,
     "Level": 0,
-    "SlotCount": 8
-  },
-  {
-    "ID": 104101,
-    "Level": 0,
-    "SlotCount": 4
-  },
-  {
-    "ID": 104102,
-    "Level": 1,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        1750
-      ]
-    ]
-  },
-  {
-    "ID": 104103,
-    "Level": 2,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        4000
-      ],
-      [
-        2,
-        4
-      ]
-    ]
+    "SlotCount": 10
   },
   {
     "ID": 104201,
@@ -825,7 +533,6 @@
   {
     "ID": 104301,
     "Level": 0,
-    "SlotCount": 4,
     "Cost": [
       [
         1,
@@ -839,50 +546,14 @@
     "SlotCount": 1
   },
   {
-    "ID": 106101,
-    "Level": 0,
-    "SlotCount": 8
-  },
-  {
-    "ID": 106102,
+    "ID": 105102,
     "Level": 1,
-    "SlotCount": 8,
-    "Cost": [
-      [
-        1,
-        950
-      ]
-    ]
+    "SlotCount": 2
   },
   {
-    "ID": 106103,
+    "ID": 105103,
     "Level": 2,
-    "SlotCount": 8,
-    "Cost": [
-      [
-        1,
-        2750
-      ],
-      [
-        2,
-        2
-      ]
-    ]
-  },
-  {
-    "ID": 106104,
-    "Level": 3,
-    "SlotCount": 8,
-    "Cost": [
-      [
-        1,
-        3500
-      ],
-      [
-        2,
-        4
-      ]
-    ]
+    "SlotCount": 3
   },
   {
     "ID": 106201,
@@ -892,57 +563,10 @@
   {
     "ID": 106301,
     "Level": 0,
-    "SlotCount": 8,
     "Cost": [
       [
         1,
         900
-      ]
-    ]
-  },
-  {
-    "ID": 107101,
-    "Level": 0,
-    "SlotCount": 9
-  },
-  {
-    "ID": 107102,
-    "Level": 1,
-    "SlotCount": 9,
-    "Cost": [
-      [
-        1,
-        1150
-      ]
-    ]
-  },
-  {
-    "ID": 107103,
-    "Level": 2,
-    "SlotCount": 9,
-    "Cost": [
-      [
-        1,
-        2750
-      ],
-      [
-        2,
-        2
-      ]
-    ]
-  },
-  {
-    "ID": 107104,
-    "Level": 3,
-    "SlotCount": 9,
-    "Cost": [
-      [
-        1,
-        3500
-      ],
-      [
-        2,
-        4
       ]
     ]
   },
@@ -954,53 +578,10 @@
   {
     "ID": 107301,
     "Level": 0,
-    "SlotCount": 9,
     "Cost": [
       [
         1,
         1200
-      ]
-    ]
-  },
-  {
-    "ID": 108101,
-    "Level": 0,
-    "SlotCount": 6
-  },
-  {
-    "ID": 108102,
-    "Level": 1,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        150
-      ]
-    ]
-  },
-  {
-    "ID": 108103,
-    "Level": 2,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        1900
-      ]
-    ]
-  },
-  {
-    "ID": 108104,
-    "Level": 3,
-    "SlotCount": 6,
-    "Cost": [
-      [
-        1,
-        3500
-      ],
-      [
-        2,
-        4
       ]
     ]
   },
@@ -1012,49 +593,10 @@
   {
     "ID": 108301,
     "Level": 0,
-    "SlotCount": 6,
     "Cost": [
       [
         1,
         150
-      ]
-    ]
-  },
-  {
-    "ID": 109101,
-    "Level": 0,
-    "SlotCount": 4
-  },
-  {
-    "ID": 109102,
-    "Level": 1,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        800
-      ]
-    ]
-  },
-  {
-    "ID": 109103,
-    "Level": 2,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        2000
-      ]
-    ]
-  },
-  {
-    "ID": 109104,
-    "Level": 3,
-    "SlotCount": 4,
-    "Cost": [
-      [
-        1,
-        9000
       ]
     ]
   },
@@ -1077,7 +619,7 @@
   {
     "ID": 109401,
     "Level": 0,
-    "SlotCount": 8
+    "SlotCount": 6
   },
   {
     "ID": 110101,
@@ -1250,6 +792,844 @@
       [
         2,
         2
+      ]
+    ]
+  },
+  {
+    "ID": 200101,
+    "Level": 0,
+    "SlotCount": 3,
+    "CookingTime": 16,
+    "BurningTime": 35,
+    "RackCount": 2
+  },
+  {
+    "ID": 200102,
+    "Level": 1,
+    "SlotCount": 4,
+    "CookingTime": 16,
+    "BurningTime": 35,
+    "RackCount": 2,
+    "Cost": [
+      [
+        1,
+        1700
+      ]
+    ]
+  },
+  {
+    "ID": 200103,
+    "Level": 2,
+    "SlotCount": 4,
+    "CookingTime": 12,
+    "BurningTime": 40,
+    "RackCount": 2,
+    "Cost": [
+      [
+        1,
+        3000
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "ID": 200104,
+    "Level": 3,
+    "SlotCount": 4,
+    "CookingTime": 9,
+    "BurningTime": 40,
+    "RackCount": 2,
+    "Cost": [
+      [
+        1,
+        4500
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "ID": 200105,
+    "Level": 4,
+    "SlotCount": 6,
+    "CookingTime": 10,
+    "BurningTime": 45,
+    "RackCount": 3,
+    "Cost": [
+      [
+        1,
+        5500
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 200106,
+    "Level": 5,
+    "SlotCount": 6,
+    "CookingTime": 6,
+    "BurningTime": 50,
+    "RackCount": 3,
+    "Cost": [
+      [
+        1,
+        7000
+      ],
+      [
+        2,
+        7
+      ]
+    ]
+  },
+  {
+    "ID": 200401,
+    "Level": 0,
+    "SlotCount": 10
+  },
+  {
+    "ID": 200501,
+    "Level": 0,
+    "SlotCount": 3,
+    "Cost": [
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "ID": 200502,
+    "Level": 1,
+    "SlotCount": 5,
+    "Cost": [
+      [
+        1,
+        1500
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 201201,
+    "Level": 0,
+    "SlotCount": 4
+  },
+  {
+    "ID": 201301,
+    "Level": 0,
+    "Cost": [
+      [
+        1,
+        1900
+      ]
+    ]
+  },
+  {
+    "ID": 203101,
+    "Level": 0,
+    "CookingTime": 7
+  },
+  {
+    "ID": 203102,
+    "Level": 1,
+    "CookingTime": 5,
+    "Cost": [
+      [
+        1,
+        1700
+      ]
+    ]
+  },
+  {
+    "ID": 203103,
+    "Level": 2,
+    "CookingTime": 4,
+    "Cost": [
+      [
+        1,
+        2900
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 203104,
+    "Level": 3,
+    "CookingTime": 3,
+    "Cost": [
+      [
+        1,
+        4000
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "ID": 203105,
+    "Level": 4,
+    "CookingTime": 2,
+    "Cost": [
+      [
+        1,
+        5000
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 204101,
+    "Level": 0,
+    "CookingTime": 7
+  },
+  {
+    "ID": 204102,
+    "Level": 1,
+    "CookingTime": 5,
+    "Cost": [
+      [
+        1,
+        1700
+      ]
+    ]
+  },
+  {
+    "ID": 204103,
+    "Level": 2,
+    "CookingTime": 4,
+    "Cost": [
+      [
+        1,
+        2900
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 204104,
+    "Level": 3,
+    "CookingTime": 3,
+    "Cost": [
+      [
+        1,
+        4000
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "ID": 204105,
+    "Level": 4,
+    "CookingTime": 2,
+    "Cost": [
+      [
+        1,
+        5000
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 205101,
+    "Level": 0,
+    "SlotCount": 1,
+    "CookingTime": 12,
+    "BurningTime": 60
+  },
+  {
+    "ID": 205102,
+    "Level": 1,
+    "SlotCount": 1,
+    "CookingTime": 6,
+    "BurningTime": 60,
+    "Cost": [
+      [
+        1,
+        2500
+      ],
+      [
+        2,
+        1
+      ]
+    ]
+  },
+  {
+    "ID": 205103,
+    "Level": 2,
+    "SlotCount": 2,
+    "CookingTime": 10,
+    "BurningTime": 60,
+    "Cost": [
+      [
+        1,
+        4500
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "ID": 205104,
+    "Level": 3,
+    "SlotCount": 2,
+    "CookingTime": 8,
+    "BurningTime": 60,
+    "Cost": [
+      [
+        1,
+        5500
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 205105,
+    "Level": 4,
+    "SlotCount": 2,
+    "CookingTime": 5,
+    "BurningTime": 60,
+    "Cost": [
+      [
+        1,
+        6500
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 205201,
+    "Level": 0,
+    "SlotCount": 2,
+    "Cost": [
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 205202,
+    "Level": 1,
+    "SlotCount": 4,
+    "Cost": [
+      [
+        1,
+        1500
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 205301,
+    "Level": 0,
+    "SlotCount": 4,
+    "BurningTime": 60
+  },
+  {
+    "ID": 205302,
+    "Level": 1,
+    "SlotCount": 6,
+    "Cost": [
+      [
+        2,
+        10
+      ]
+    ]
+  },
+  {
+    "ID": 207201,
+    "Level": 0,
+    "SlotCount": 6
+  },
+  {
+    "ID": 207301,
+    "Level": 0,
+    "Cost": [
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 208101,
+    "Level": 0,
+    "SlotCount": 2,
+    "BurningTime": 35
+  },
+  {
+    "ID": 208102,
+    "Level": 1,
+    "SlotCount": 4,
+    "BurningTime": 35,
+    "RackCount": 2,
+    "Cost": [
+      [
+        1,
+        1400
+      ]
+    ]
+  },
+  {
+    "ID": 208103,
+    "Level": 2,
+    "SlotCount": 4,
+    "BurningTime": 40,
+    "RackCount": 2,
+    "Cost": [
+      [
+        1,
+        3200
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 208104,
+    "Level": 3,
+    "SlotCount": 4,
+    "BurningTime": 45,
+    "RackCount": 2,
+    "Cost": [
+      [
+        1,
+        5000
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 208105,
+    "Level": 4,
+    "SlotCount": 6,
+    "BurningTime": 45,
+    "RackCount": 3,
+    "Cost": [
+      [
+        1,
+        5500
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "ID": 208106,
+    "Level": 5,
+    "SlotCount": 6,
+    "BurningTime": 50,
+    "RackCount": 3,
+    "Cost": [
+      [
+        1,
+        6000
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "ID": 208107,
+    "Level": 6,
+    "SlotCount": 8,
+    "BurningTime": 55,
+    "RackCount": 4,
+    "Cost": [
+      [
+        1,
+        7000
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 208301,
+    "Level": 0,
+    "SlotCount": 2,
+    "Cost": [
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 208302,
+    "Level": 1,
+    "SlotCount": 4,
+    "RackCount": 2,
+    "Cost": [
+      [
+        1,
+        3000
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 208401,
+    "Level": 0,
+    "SlotCount": 8
+  },
+  {
+    "ID": 209101,
+    "Level": 0,
+    "SlotCount": 2
+  },
+  {
+    "ID": 209102,
+    "Level": 1,
+    "SlotCount": 3
+  },
+  {
+    "ID": 209103,
+    "Level": 2,
+    "SlotCount": 3
+  },
+  {
+    "ID": 209104,
+    "Level": 3,
+    "SlotCount": 4,
+    "RackCount": 2
+  },
+  {
+    "ID": 209105,
+    "Level": 4,
+    "SlotCount": 4,
+    "RackCount": 2
+  },
+  {
+    "ID": 209106,
+    "Level": 5,
+    "SlotCount": 6,
+    "RackCount": 3
+  },
+  {
+    "ID": 209107,
+    "Level": 6,
+    "SlotCount": 8,
+    "RackCount": 4
+  },
+  {
+    "ID": 209301,
+    "Level": 0,
+    "SlotCount": 2
+  },
+  {
+    "ID": 209302,
+    "Level": 1,
+    "SlotCount": 4,
+    "RackCount": 2
+  },
+  {
+    "ID": 209401,
+    "Level": 0,
+    "SlotCount": 9
+  },
+  {
+    "ID": 211201,
+    "Level": 0,
+    "SlotCount": 9
+  },
+  {
+    "ID": 211301,
+    "Level": 0,
+    "Cost": [
+      [
+        1,
+        2000
+      ]
+    ]
+  },
+  {
+    "ID": 212201,
+    "Level": 0,
+    "SlotCount": 6
+  },
+  {
+    "ID": 215101,
+    "Level": 0,
+    "SlotCount": 9
+  },
+  {
+    "ID": 215102,
+    "Level": 1,
+    "SlotCount": 13,
+    "Cost": [
+      [
+        1,
+        1000
+      ]
+    ]
+  },
+  {
+    "ID": 215103,
+    "Level": 2,
+    "SlotCount": 16,
+    "Cost": [
+      [
+        1,
+        2300
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 215104,
+    "Level": 3,
+    "SlotCount": 19,
+    "Cost": [
+      [
+        1,
+        2900
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "ID": 215105,
+    "Level": 4,
+    "SlotCount": 22,
+    "Cost": [
+      [
+        1,
+        3500
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "ID": 215106,
+    "Level": 5,
+    "SlotCount": 25,
+    "Cost": [
+      [
+        1,
+        4200
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 216101,
+    "Level": 0,
+    "SlotCount": 19,
+    "CookingTime": 32
+  },
+  {
+    "ID": 216102,
+    "Level": 1,
+    "SlotCount": 23,
+    "CookingTime": 25,
+    "Cost": [
+      [
+        1,
+        1500
+      ]
+    ]
+  },
+  {
+    "ID": 216103,
+    "Level": 2,
+    "SlotCount": 30,
+    "CookingTime": 20,
+    "Cost": [
+      [
+        1,
+        4000
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 216104,
+    "Level": 3,
+    "SlotCount": 35,
+    "CookingTime": 10,
+    "Cost": [
+      [
+        1,
+        5000
+      ],
+      [
+        2,
+        5
+      ]
+    ]
+  },
+  {
+    "ID": 217101,
+    "Level": 0,
+    "SlotCount": 7
+  },
+  {
+    "ID": 217102,
+    "Level": 1,
+    "SlotCount": 9,
+    "Cost": [
+      [
+        1,
+        1000
+      ]
+    ]
+  },
+  {
+    "ID": 217103,
+    "Level": 2,
+    "SlotCount": 10,
+    "Cost": [
+      [
+        1,
+        2300
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "ID": 217104,
+    "Level": 3,
+    "SlotCount": 11,
+    "Cost": [
+      [
+        1,
+        3100
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "ID": 217105,
+    "Level": 4,
+    "SlotCount": 12,
+    "Cost": [
+      [
+        1,
+        4100
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
+  {
+    "ID": 217106,
+    "Level": 5,
+    "SlotCount": 13,
+    "Cost": [
+      [
+        1,
+        4500
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "ID": 217107,
+    "Level": 6,
+    "SlotCount": 14,
+    "Cost": [
+      [
+        1,
+        5200
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "ID": 217108,
+    "Level": 7,
+    "SlotCount": 15,
+    "Cost": [
+      [
+        1,
+        6000
+      ],
+      [
+        2,
+        5
       ]
     ]
   }

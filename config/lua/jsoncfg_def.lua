@@ -16,6 +16,8 @@ local cfgmgr = {
 	CfgChapterLevelProgress_Gen = {items = nil, onloadpost = nil},
 	CfgItem = {items = nil, onloadpost = nil},
 	CfgItemLevel = {items = nil, onloadpost = nil},
+	CfgProcedureGroup = {items = nil, onloadpost = nil},
+	CfgProcedureDetail = {items = nil, onloadpost = nil},
 	CfgSeat = {items = nil, onloadpost = nil},
 	CfgSeatLevel = {items = nil, onloadpost = nil},
 
